@@ -3,6 +3,7 @@ package com.app.database;
 import java.sql.*;
 
 public class Database {
+
     public void turnOnDatabase() {
         System.out.println("Uruchamianie Bazy");
         Connection con = null;
@@ -28,7 +29,6 @@ public class Database {
                 String email = rs.getString("EMAIL");
                 System.out.println("ID: " + id + " LOGIN: " + login + " PASSWORD: " + password + " EMAIL: " + email);
             }
-
         } catch ( SQLException e ) {
             e.printStackTrace();
         } catch ( Exception e ) {
