@@ -1,4 +1,4 @@
-package com.app.login;
+package com.app.userOptions;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class Menu {
         System.out.println("\n\t#Travel Agency#\n");
         System.out.println("1) Log in");
         System.out.println("2) Register");
-        System.out.println("Choose option: ");
+        System.out.print("Choose option: ");
         chooseOption();
     }
 
@@ -39,6 +39,7 @@ public class Menu {
             System.exit(ERROR);
         }
 
+        System.out.println();
         return option;
     }
 }

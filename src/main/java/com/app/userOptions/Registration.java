@@ -1,4 +1,4 @@
-package com.app.login;
+package com.app.userOptions;
 
 import java.util.Scanner;
 

@@ -1,47 +1,76 @@
 package com.app.database;
 
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Hashtable;
 
 public class Database {
+    private static final int ERROR = 1;
+    private static final String loginToDatabase = "root";
+    private static final String passwordToDatabase = "";
 
-    public void turnOnDatabase() {
-        System.out.println("Uruchamianie Bazy");
-        Connection con = null;
-        Statement statement = null;
-        ResultSet rs = null;
+    public Connection getInDatabase() {
+        Connection connection = null;
         try  {
-            con = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/users", "root", "");
+            connection = DriverManager
+                    .getConnection("jdbc:mysql://localhost:3306/users", loginToDatabase, passwordToDatabase);
 
-            if ( con == null ) {
+            if ( connection == null ) {
                 System.out.println("No connection to db");
-            } else {
+                System.exit(ERROR);
+            } /*else {
                 System.out.println("Connected");
-            }
-
-            statement = con.createStatement();
-            String sql = "SELECT ID, LOGIN, PASSWORD, EMAIL from users";
-            rs = statement.executeQuery(sql);
-            while ( rs.next() ) {
-                int id = rs.getInt("ID");
-                String login = rs.getString("LOGIN");
-                String password = rs.getString("PASSWORD");
-                String email = rs.getString("EMAIL");
-                System.out.println("ID: " + id + " LOGIN: " + login + " PASSWORD: " + password + " EMAIL: " + email);
-            }
-        } catch ( SQLException e ) {
+                //createCommandInDatabase(connection);
+            }*/
+        } catch ( Exception e) {
             e.printStackTrace();
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        } finally {
+        } /*finally {
             try {
-                rs.close();
-                statement.close();
-                con.close();
+                connection.close();
             } catch ( Exception e ) {
                 e.printStackTrace();
             }
+        }*/
 
+        return connection;
+    }
+
+    public ResultSet createCommandInDatabase(Connection connection) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            String sql = "SELECT LOGIN, PASSWORD from users";
+            resultSet = statement.executeQuery(sql);
+            //executeCommandInDatabase(resultSet);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        } /*finally {
+            try {
+                resultSet.close();
+                statement.close();
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+        }*/
+
+        return resultSet;
+    }
+
+    public Hashtable executeCommandInDatabase(ResultSet resultSet) {
+        var data = new Hashtable<String, String>();
+        try {
+            while ( resultSet.next() ) {
+                String login = resultSet.getString("LOGIN");
+                String password = resultSet.getString("PASSWORD");
+                data.put(login, password);
+                //System.out.println("LOGIN: " + login + " PASSWORD: " + password);
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
         }
+
+        return data;
     }
 }
