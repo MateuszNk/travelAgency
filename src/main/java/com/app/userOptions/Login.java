@@ -54,10 +54,10 @@ public class Login {
 
     public void isCorrectLoginData(String login, String password, Hashtable<String, String> data) {
         boolean isGoodData = false;
-        for (Map.Entry<String, String> entry : data.entrySet()) {
+        for ( Map.Entry<String, String> entry : data.entrySet() ) {
             String k = entry.getKey();
             String v = entry.getValue();
-            if (k.equals(login) && v.equals(password)) {
+            if ( k.equals(login) && v.equals(password) ) {
                 System.out.println("Welcome " + login);
                 isGoodData = true;
                 break;

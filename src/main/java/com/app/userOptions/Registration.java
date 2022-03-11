@@ -83,17 +83,10 @@ public class Registration {
     }
 
     public void addUserToDatabase(int id, String login, String password, String email) {
-        Connection connection = null;
+        Database db = new Database();
+        Connection connection = db.getInDatabase();
         PreparedStatement preparedStatement = null;
         try  {
-            connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/users", "root", "");
-
-            if ( connection == null ) {
-                System.out.println("No connection to db");
-                System.exit(ERROR);
-            }
-
             String insertQuery = "INSERT INTO `users` (`ID`, `LOGIN`, `PASSWORD`, `EMAIL`)" + "VALUES(?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setInt(1, id);

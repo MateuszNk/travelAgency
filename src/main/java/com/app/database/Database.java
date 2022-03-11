@@ -1,36 +1,26 @@
 package com.app.database;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Hashtable;
 
 public class Database {
     private static final int ERROR = 1;
     private static final String loginToDatabase = "root";
     private static final String passwordToDatabase = "";
+    private static final String urlToDatabse = "jdbc:mysql://localhost:3306/users";
 
     public Connection getInDatabase() {
         Connection connection = null;
         try  {
             connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/users", loginToDatabase, passwordToDatabase);
+                    .getConnection(urlToDatabse, loginToDatabase, passwordToDatabase);
 
             if ( connection == null ) {
                 System.out.println("No connection to db");
                 System.exit(ERROR);
-            } /*else {
-                System.out.println("Connected");
-                //createCommandInDatabase(connection);
-            }*/
+            }
         } catch ( Exception e) {
             e.printStackTrace();
-        } /*finally {
-            try {
-                connection.close();
-            } catch ( Exception e ) {
-                e.printStackTrace();
-            }
-        }*/
+        }
 
         return connection;
     }
@@ -51,34 +41,10 @@ public class Database {
 
         try {
             resultSet = statement.executeQuery(sql);
-            //executeCommandInDatabase(resultSet);
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        } /*finally {
-            try {
-                resultSet.close();
-                statement.close();
-            } catch ( Exception e ) {
-                e.printStackTrace();
-            }
-        }*/
-
-        return resultSet;
-    }
-
-/*    public Hashtable executeCommandInDatabase(ResultSet resultSet) {
-        var data = new Hashtable<String, String>();
-        try {
-            while ( resultSet.next() ) {
-                String login = resultSet.getString("LOGIN");
-                String password = resultSet.getString("PASSWORD");
-                data.put(login, password);
-                //System.out.println("LOGIN: " + login + " PASSWORD: " + password);
-            }
         } catch ( Exception e ) {
             e.printStackTrace();
         }
 
-        return data;
-    }*/
+        return resultSet;
+    }
 }
