@@ -46,12 +46,10 @@ public class Database {
         return statement;
     }
 
-    public ResultSet createCommandInDatabase(Statement statement) {
+    public ResultSet createCommandInDatabase(Statement statement, String sql) {
         ResultSet resultSet = null;
 
         try {
-
-            String sql = "SELECT LOGIN, PASSWORD from users";
             resultSet = statement.executeQuery(sql);
             //executeCommandInDatabase(resultSet);
         } catch ( Exception e ) {
@@ -68,7 +66,7 @@ public class Database {
         return resultSet;
     }
 
-    public Hashtable executeCommandInDatabase(ResultSet resultSet) {
+/*    public Hashtable executeCommandInDatabase(ResultSet resultSet) {
         var data = new Hashtable<String, String>();
         try {
             while ( resultSet.next() ) {
@@ -82,5 +80,5 @@ public class Database {
         }
 
         return data;
-    }
+    }*/
 }

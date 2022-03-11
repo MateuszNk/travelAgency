@@ -27,8 +27,19 @@ public class Login {
         Database db = new Database();
         Connection connection = db.getInDatabase();
         Statement statement = db.createStatement(connection);
-        ResultSet resultSet = db.createCommandInDatabase(statement);
-        var data = db.executeCommandInDatabase(resultSet);
+        String sql = "SELECT LOGIN, PASSWORD from users";
+        ResultSet resultSet = db.createCommandInDatabase(statement, sql);
+
+        var data = new Hashtable<String, String>();
+        try {
+            while ( resultSet.next() ) {
+                String databaseLogin = resultSet.getString("LOGIN");
+                String databasePassword = resultSet.getString("PASSWORD");
+                data.put(databaseLogin, databasePassword);
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
 
         try {
             resultSet.close();
