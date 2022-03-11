@@ -4,6 +4,7 @@ import com.app.database.Database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
@@ -25,16 +26,18 @@ public class Login {
     public void getDataFromDatabase(String login, String password) {
         Database db = new Database();
         Connection connection = db.getInDatabase();
-        ResultSet resultSet = db.createCommandInDatabase(connection);
+        Statement statement = db.createStatement(connection);
+        ResultSet resultSet = db.createCommandInDatabase(statement);
         var data = db.executeCommandInDatabase(resultSet);
 
         try {
             resultSet.close();
-            // nie zamykam statement
+            statement.close();
             connection.close();
         } catch ( Exception e ) {
             e.printStackTrace();
         }
+
         isCorrectLoginData(login, password, data);
     }
 

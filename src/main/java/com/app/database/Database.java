@@ -35,12 +35,22 @@ public class Database {
         return connection;
     }
 
-    public ResultSet createCommandInDatabase(Connection connection) {
+    public Statement createStatement(Connection connection) {
         Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return statement;
+    }
+
+    public ResultSet createCommandInDatabase(Statement statement) {
         ResultSet resultSet = null;
 
         try {
-            statement = connection.createStatement();
+
             String sql = "SELECT LOGIN, PASSWORD from users";
             resultSet = statement.executeQuery(sql);
             //executeCommandInDatabase(resultSet);
