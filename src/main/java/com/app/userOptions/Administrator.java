@@ -5,8 +5,10 @@ import com.app.database.Database;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Administrator {
@@ -49,7 +51,9 @@ public class Administrator {
                 registration.registration();
             }
             case 3 -> {
-                System.out.println("Delete");
+                String loginToDelete = loginToDelete();
+                isLoginInDatabase(loginToDelete);
+                deleteUserByLogin(loginToDelete);
             }
             default -> {
                 System.out.println("Wrong input data");
@@ -91,15 +95,16 @@ public class Administrator {
         System.out.println("Would You like to save data to file? y/n");
         String option = scanner.nextLine();
         String lowerCaseOption = option.toLowerCase();
-        char o = lowerCaseOption.charAt(0);
+        char yesNo = lowerCaseOption.charAt(0);
 
-        if ( option.length() != 1 || (o != 'n' && o != 'y') ) {
+        if ( option.length() != 1 || (yesNo != 'n' && yesNo != 'y') ) {
             System.out.println("Wrong input");
             System.exit(ERROR);
         }
 
         savaDataToFile();
     }
+
     public void savaDataToFile() {
         Database db = new Database();
         Connection connection = db.getInDatabase();
@@ -116,8 +121,8 @@ public class Administrator {
                 String login = resultSet.getString("LOGIN");
                 String email = resultSet.getString("EMAIL");
 
-                writer.append("ID: ").append(String.valueOf(id)).append(" LOGIN: ").append(login).append(" EMAIL: ").append(email).append("\n");
-
+                writer.append("ID: ").append(String.valueOf(id)).append(" LOGIN: ")
+                        .append(login).append(" EMAIL: ").append(email).append("\n");
             }
         } catch ( Exception e ) {
             e.printStackTrace();
@@ -133,4 +138,66 @@ public class Administrator {
         }
     }
 
+    public String loginToDelete() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Write login to delete: ");
+        return scanner.nextLine();
+    }
+
+    public void isLoginInDatabase(String login) {
+        Database db = new Database();
+        Connection connection = db.getInDatabase();
+        Statement statement = db.createStatement(connection);
+        String sql = "SELECT LOGIN from users";
+        ResultSet resultSet = db.createCommandInDatabase(statement, sql);
+
+        boolean loginIsInDatabase = false;
+        try {
+            while ( resultSet.next() ) {
+                String databaseLogin = resultSet.getString("LOGIN");
+                if ( databaseLogin.equals(login) ) {
+                    System.out.println("User found");
+                    loginIsInDatabase = true;
+                    break;
+                }
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if ( !loginIsInDatabase ) {
+            System.out.println("Login not found");
+            System.exit(ERROR);
+        }
+    }
+
+    public void deleteUserByLogin(String login) {
+        Database db = new Database();
+        Connection connection = db.getInDatabase();
+        String sql = "DELETE FROM `users` WHERE `users`.`LOGIN` = ?";
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, login);
+            preparedStatement.executeUpdate();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

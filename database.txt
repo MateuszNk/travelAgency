@@ -1,3 +1,0 @@
-ID: 1 LOGIN: admin EMAIL: admin@test.gw.pl
-ID: 2 LOGIN: Mateusz EMAIL: mateusz@ed.p.lodz
-ID: 3 LOGIN: test EMAIL: test@testowy.pl
