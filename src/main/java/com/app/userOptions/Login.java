@@ -21,6 +21,10 @@ public class Login {
         String password = scanner.nextLine();
 
         getDataFromDatabase(login, password);
+        if ( login.equals("admin") ) {
+            Administrator administrator = new Administrator();
+            administrator.menu();
+        }
     }
 
     public void getDataFromDatabase(String login, String password) {

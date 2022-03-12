@@ -22,16 +22,26 @@ public class Registration {
         System.out.print("Email: ");
         String email = scanner.nextLine();
 
+        checkPassword(password, repeatedPassword);
+        checkEmail(email);
+
+        int lastUsedIdInDatabase = getDataFromDatabase(login, email);
+        addUserToDatabase(lastUsedIdInDatabase, login, password, email);
+    }
+
+    public void checkPassword(String password, String repeatedPassword) {
         if ( !password.equals(repeatedPassword) ) {
             System.out.println("Given passwords are NOT equals");
             System.exit(ERROR);
-        } else if ( !email.contains("@") ) {
+        }
+    }
+
+    public void checkEmail(String email) {
+        String isCorrectEmail = email.substring(email.lastIndexOf("@") + 1);
+        if ( !email.contains("@")  || !isCorrectEmail.contains(".") ) {
             System.out.println("Email is invalid");
             System.exit(ERROR);
         }
-
-        int id = getDataFromDatabase(login, email);
-        addUserToDatabase(id, login, password, email);
     }
 
     public int getDataFromDatabase(String login, String email) {
@@ -52,28 +62,27 @@ public class Registration {
             }
         } catch ( Exception e ) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-        try {
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        }
-
         isTakenLoginOrEmail(login, email, data);
         return id+1;
     }
 
     public void isTakenLoginOrEmail(String login, String email, Hashtable<String, String> data) {
         for ( Map.Entry<String, String> entry : data.entrySet() ) {
-            String k = entry.getKey();
-            String v = entry.getValue();
-            if ( k.equals(login) ) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if ( key.equals(login) ) {
                 System.out.println("This login is already taken!");
                 System.exit(ERROR);
-            } else if ( v.equals(email) ) {
+            } else if ( value.equals(email) ) {
                 System.out.println("This email is already taken!");
                 System.exit(ERROR);
             }

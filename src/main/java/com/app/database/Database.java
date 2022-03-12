@@ -6,16 +6,16 @@ public class Database {
     private static final int ERROR = 1;
     private static final String loginToDatabase = "root";
     private static final String passwordToDatabase = "";
-    private static final String urlToDatabse = "jdbc:mysql://localhost:3306/users";
+    private static final String urlToDatabase = "jdbc:mysql://localhost:3306/users";
 
     public Connection getInDatabase() {
         Connection connection = null;
         try  {
             connection = DriverManager
-                    .getConnection(urlToDatabse, loginToDatabase, passwordToDatabase);
+                    .getConnection(urlToDatabase, loginToDatabase, passwordToDatabase);
 
             if ( connection == null ) {
-                System.out.println("No connection to db");
+                System.out.println("No connection to database");
                 System.exit(ERROR);
             }
         } catch ( Exception e) {

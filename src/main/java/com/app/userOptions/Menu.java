@@ -25,6 +25,7 @@ public class Menu {
             }
             default -> {
                 System.out.println("Wrong input data");
+                System.exit(ERROR);
             }
         }
     }
