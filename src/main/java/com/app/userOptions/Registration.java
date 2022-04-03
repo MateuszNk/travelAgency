@@ -19,10 +19,9 @@ public class Registration {
         String password = scanner.nextLine();
         System.out.print("Repeat password: ");
         String repeatedPassword = scanner.nextLine();
+        checkPassword(password, repeatedPassword);
         System.out.print("Email: ");
         String email = scanner.nextLine();
-
-        checkPassword(password, repeatedPassword);
         checkEmail(email);
 
         int lastUsedIdInDatabase = getDataFromDatabase(login, email);

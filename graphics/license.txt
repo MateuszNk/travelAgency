@@ -1,0 +1,6 @@
+(*) Icon mountain.png
+Flaticon License
+Free for personal and commercial purpose with attribution.
+<a href="https://www.flaticon.com/free-icons/mountain" title="mountain icons">Mountain icons created by Freepik - Flaticon</a>
+
+(*)

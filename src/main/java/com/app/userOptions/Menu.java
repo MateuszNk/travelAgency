@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Menu {
     private static final int ERROR = 1;
+    private static final int LOGIN = 1;
+    private static final int REGISTER = 2;
 
     public void menu() {
         System.out.println("\n\t#Travel Agency#\n");
@@ -15,11 +17,11 @@ public class Menu {
 
     public void chooseOption() {
         switch ( isSelectedOptionValue() ) {
-            case 1 -> {
+            case LOGIN -> {
                 Login login = new Login();
                 login.login();
             }
-            case 2 -> {
+            case REGISTER -> {
                 Registration registration = new Registration();
                 registration.registration();
             }

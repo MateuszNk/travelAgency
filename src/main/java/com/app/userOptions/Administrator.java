@@ -8,14 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Administrator {
     private static final int ERROR = 1;
-    private static final String loginToDatabase = "root";
-    private static final String passwordToDatabase = "";
-    private static final String urlToDatabase = "jdbc:mysql://localhost:3306/users";
+    private static final int DISPLAY_ALL = 1;
+    private static final int REGISTER = 2;
+    private static final int DELETE = 3;
 
     public void menu() {
         System.out.println("Hello admin");
@@ -42,15 +41,15 @@ public class Administrator {
 
     public void chosenOperation(int option) {
         switch( option ) {
-            case 1 -> {
+            case DISPLAY_ALL -> {
                 displayAllDatabase();
                 wantSavaToFile();
             }
-            case 2 -> {
+            case REGISTER -> {
                 Registration registration = new Registration();
                 registration.registration();
             }
-            case 3 -> {
+            case DELETE -> {
                 String loginToDelete = loginToDelete();
                 isLoginInDatabase(loginToDelete);
                 deleteUserByLogin(loginToDelete);
