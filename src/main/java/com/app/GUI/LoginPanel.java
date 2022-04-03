@@ -5,17 +5,23 @@ import java.awt.*;
 
 public class LoginPanel extends JComponent {
 
+    public JFrame frame;
+    public JTextField loginJTextField;
+    public JPasswordField passwordJPasswordField;
+
     public LoginPanel() {
-        JFrame frame = new JFrame ("Login Panel");
+        frame = new JFrame ("Login Panel");
+        ImageIcon icon = new ImageIcon("./graphics/mountain.png");
+        frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 
         JButton loginJButton = new JButton("LOGIN");
         JButton returnJButton = new JButton("BACK");
         JLabel loginJLabel = new JLabel("Login:");
         JLabel passwordJLabel = new JLabel("Password:");
-        JTextField loginJTextField = new JTextField(16);
+        loginJTextField = new JTextField(16);
         JLabel welcomeJLabel = new JLabel("Please login to continue");
-        JPasswordField passwordJPasswordField = new JPasswordField(32);
+        passwordJPasswordField = new JPasswordField(32);
 
         frame.setPreferredSize(new Dimension (319, 250));
         frame.setLayout(null);
@@ -47,6 +53,8 @@ public class LoginPanel extends JComponent {
             CheckLoginData checkLoginData = new CheckLoginData(
                     loginJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
         });
+
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible (true);
     }

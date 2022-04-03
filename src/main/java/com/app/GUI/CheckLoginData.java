@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class CheckLoginData {
 
-    private static final int ERROR = 1;
-
     public CheckLoginData(String login, String password) {
         getDataFromDatabase(login, password);
         /*if ( login.equals("admin") ) {
@@ -34,11 +32,7 @@ public class CheckLoginData {
                 String databasePassword = resultSet.getString("PASSWORD");
                 data.put(databaseLogin, databasePassword);
             }
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        }
 
-        try {
             resultSet.close();
             statement.close();
             connection.close();
@@ -55,15 +49,16 @@ public class CheckLoginData {
             String k = entry.getKey();
             String v = entry.getValue();
             if ( k.equals(login) && v.equals(password) ) {
-                System.out.println("Welcome " + login);
+                WrongLoginData wrongLoginData = new WrongLoginData("Welcome");
+                wrongLoginData.successfulLogin();
                 isGoodData = true;
                 break;
             }
         }
 
         if ( !isGoodData ) {
-            System.out.println("Wrong login or/and password!");
-            System.exit(ERROR);
+            WrongLoginData wrongLoginData = new WrongLoginData("ERROR");
+            wrongLoginData.wrongLoginData();
         }
     }
 }
