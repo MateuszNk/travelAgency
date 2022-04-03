@@ -37,6 +37,11 @@ public class WelcomePanel extends JComponent{
             System.exit(SUCCESS);
         });
 
+        loginJButton.addActionListener(e -> {
+            frame.dispose();
+            LoginPanel loginPanel = new LoginPanel();
+        });
+
         frame.pack();
         frame.setVisible(true);
     }
