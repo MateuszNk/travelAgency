@@ -75,19 +75,19 @@ public class WelcomePanel {
 
     public void isDarkThemeOn() {
         if ( isDarkTheme ) {
-            setTheme(Color.BLACK, Color.LIGHT_GRAY);
+            paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
             isDarkTheme = true;
         } else {
-            setTheme(Color.WHITE, Color.BLACK);
+            paintAllComponents(Color.WHITE, Color.BLACK);
             isDarkTheme = false;
         }
         darkThemeJRadioButton.addItemListener(event -> {
             int state = event.getStateChange();
             if (state == ItemEvent.SELECTED && !isDarkTheme ) {
-                setTheme(Color.BLACK, Color.LIGHT_GRAY);
                 isDarkTheme = true;
+                paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
             } else if ( state == ItemEvent.DESELECTED && isDarkTheme ) {
-                setTheme(Color.WHITE, Color.BLACK);
+                paintAllComponents(Color.WHITE, Color.BLACK);
                 isDarkTheme = false;
             }
         });
@@ -95,28 +95,24 @@ public class WelcomePanel {
         lightThemeJRadioButton.addItemListener(event -> {
             int state = event.getStateChange();
             if (state == ItemEvent.SELECTED && isDarkTheme ) {
-                setTheme(Color.WHITE, Color.BLACK);
+                paintAllComponents(Color.WHITE, Color.BLACK);
                 isDarkTheme = false;
             } else if ( state == ItemEvent.DESELECTED && !isDarkTheme ) {
-                setTheme(Color.BLACK, Color.LIGHT_GRAY);
+                paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
                 isDarkTheme = true;
             }
         });
     }
 
-    public void setTheme(Color backgroundColor, Color foregroundColor) {
+    public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
         frame.getContentPane().setBackground(backgroundColor);
-        loginJButton.setBackground(backgroundColor);
-        loginJButton.setForeground(foregroundColor);
-        registerJButton.setBackground(backgroundColor);
-        registerJButton.setForeground(foregroundColor);
-        exitJButton.setBackground(backgroundColor);
-        exitJButton.setForeground(foregroundColor);
-        welcomeJLabel.setForeground(foregroundColor);
-        darkThemeJRadioButton.setBackground(backgroundColor);
-        darkThemeJRadioButton.setForeground(foregroundColor);
-        lightThemeJRadioButton.setBackground(backgroundColor);
-        lightThemeJRadioButton.setForeground(foregroundColor);
+        SetTheme setTheme = new SetTheme(backgroundColor, foregroundColor);
+        setTheme.setJButtonTheme(loginJButton);
+        setTheme.setJButtonTheme(registerJButton);
+        setTheme.setJButtonTheme(exitJButton);
+        setTheme.setJLabelTheme(welcomeJLabel);
+        setTheme.setJRadioButton(darkThemeJRadioButton);
+        setTheme.setJRadioButton(lightThemeJRadioButton);
     }
 
     public static boolean getIsDarkTheme() {
