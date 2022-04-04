@@ -9,7 +9,7 @@ public class WelcomePanel {
     private static final int SUCCESS = 0;
     public JFrame frame;
     public static final int WIDTH = 280;
-    public static final int HEIGHT = 320;
+    public static final int HEIGHT = 300;
     public WelcomePanel() {
         frame = new JFrame("Travel Agency App");
         ImageIcon icon = new ImageIcon("./graphics/mountain.png");
@@ -32,6 +32,7 @@ public class WelcomePanel {
     public JButton loginJButton;
     public JButton registerJButton;
     public JButton exitJButton;
+    public static boolean isDarkTheme;
     public void addComponents() {
         welcomeJLabel = new JLabel("Welcome in Travel Agency App");
         loginJButton = new JButton("LOG IN");
@@ -43,21 +44,16 @@ public class WelcomePanel {
         groupOfThemes.add(darkThemeJRadioButton);
         groupOfThemes.add(lightThemeJRadioButton);
 
-        darkThemeJRadioButton.addItemListener(event -> {
-            int state = event.getStateChange();
-            if (state == ItemEvent.SELECTED) {
-                setTheme(Color.BLACK, Color.LIGHT_GRAY);
-            } else if ( state == ItemEvent.DESELECTED ) {
-                setTheme(Color.WHITE, Color.BLACK);
-            }
-        });
+        isDarkThemeOn();
 
+        darkThemeJRadioButton.setToolTipText("Select this option if you want dark theme");
+        lightThemeJRadioButton.setToolTipText("Select this option if you want light theme");
         welcomeJLabel.setBounds(35, 25, 225, 25);
         loginJButton.setBounds(85, 65, 100, 25);
         registerJButton.setBounds(85, 110, 100, 25);
         exitJButton.setBounds(85, 155, 100, 25);
-        darkThemeJRadioButton.setBounds(150, 210, 200, 25);
-        lightThemeJRadioButton.setBounds(150, 230, 200, 25);
+        darkThemeJRadioButton.setBounds(150, 190, 200, 25);
+        lightThemeJRadioButton.setBounds(150, 210, 200, 25);
 
         exitJButton.addActionListener(e -> {
             frame.dispose();
@@ -77,6 +73,37 @@ public class WelcomePanel {
         frame.add(lightThemeJRadioButton);
     }
 
+    public void isDarkThemeOn() {
+        if ( isDarkTheme ) {
+            setTheme(Color.BLACK, Color.LIGHT_GRAY);
+            isDarkTheme = true;
+        } else {
+            setTheme(Color.WHITE, Color.BLACK);
+            isDarkTheme = false;
+        }
+        darkThemeJRadioButton.addItemListener(event -> {
+            int state = event.getStateChange();
+            if (state == ItemEvent.SELECTED && !isDarkTheme ) {
+                setTheme(Color.BLACK, Color.LIGHT_GRAY);
+                isDarkTheme = true;
+            } else if ( state == ItemEvent.DESELECTED && isDarkTheme ) {
+                setTheme(Color.WHITE, Color.BLACK);
+                isDarkTheme = false;
+            }
+        });
+
+        lightThemeJRadioButton.addItemListener(event -> {
+            int state = event.getStateChange();
+            if (state == ItemEvent.SELECTED && isDarkTheme ) {
+                setTheme(Color.WHITE, Color.BLACK);
+                isDarkTheme = false;
+            } else if ( state == ItemEvent.DESELECTED && !isDarkTheme ) {
+                setTheme(Color.BLACK, Color.LIGHT_GRAY);
+                isDarkTheme = true;
+            }
+        });
+    }
+
     public void setTheme(Color backgroundColor, Color foregroundColor) {
         frame.getContentPane().setBackground(backgroundColor);
         loginJButton.setBackground(backgroundColor);
@@ -92,8 +119,11 @@ public class WelcomePanel {
         lightThemeJRadioButton.setForeground(foregroundColor);
     }
 
+    public static boolean getIsDarkTheme() {
+        return isDarkTheme;
+    }
+
     public static void main(String[] args) {
         new WelcomePanel();
     }
 }
-
