@@ -48,9 +48,9 @@ public class LoginPanel {
         backJButton.setBounds (170, 150, 100, 20);
 
         if ( WelcomePanel.getIsDarkTheme() ) {
-            setTheme(Color.BLACK, Color.LIGHT_GRAY);
+            paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
-            setTheme(Color.WHITE, Color.BLACK);
+            paintAllComponents(Color.WHITE, Color.BLACK);
         }
 
         backJButton.addActionListener(e -> {
@@ -72,24 +72,16 @@ public class LoginPanel {
         frame.add(passwordJPasswordField);
     }
 
-    public void setTheme(Color backgroundColor, Color foregroundColor) {
+    public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
         frame.getContentPane().setBackground(backgroundColor);
-        welcomeJLabel.setBackground(backgroundColor);
-        welcomeJLabel.setForeground(foregroundColor);
-        loginJLabel.setBackground(backgroundColor);
-        loginJLabel.setForeground(foregroundColor);
-        passwordJLabel.setBackground(backgroundColor);
-        passwordJLabel.setForeground(foregroundColor);
-        loginJTextField.setBackground(backgroundColor);
-        loginJTextField.setForeground(foregroundColor);
-        loginJTextField.setCaretColor(foregroundColor);
-        passwordJPasswordField.setBackground(backgroundColor);
-        passwordJPasswordField.setForeground(foregroundColor);
-        passwordJPasswordField.setCaretColor(foregroundColor);
-        loginJButton.setBackground(backgroundColor);
-        loginJButton.setForeground(foregroundColor);
-        backJButton.setBackground(backgroundColor);
-        backJButton.setForeground(foregroundColor);
+        SetTheme setTheme = new SetTheme(backgroundColor, foregroundColor);
+        setTheme.setJLabelTheme(welcomeJLabel);
+        setTheme.setJLabelTheme(loginJLabel);
+        setTheme.setJLabelTheme(passwordJLabel);
+        setTheme.setJTextField(loginJTextField);
+        setTheme.setJPasswordField(passwordJPasswordField);
+        setTheme.setJButtonTheme(loginJButton);
+        setTheme.setJButtonTheme(backJButton);
     }
 
     public static void main(String[] args) {

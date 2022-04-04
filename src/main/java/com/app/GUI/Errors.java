@@ -37,9 +37,9 @@ public class Errors {
         exitJButton.setBounds(130, 80, 100, 20);
 
         if ( WelcomePanel.getIsDarkTheme() ) {
-            setTheme(Color.BLACK, Color.LIGHT_GRAY);
+            paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
-            setTheme(Color.WHITE, Color.BLACK);
+            paintAllComponents(Color.WHITE, Color.BLACK);
         }
 
         backJButton.addActionListener(e -> {
@@ -56,14 +56,12 @@ public class Errors {
         frame.add(exitJButton);
     }
 
-    public void setTheme(Color background, Color foreground) {
-        frame.getContentPane().setBackground(background);
-        communicateJLabel.setBackground(background);
-        communicateJLabel.setForeground(foreground);
-        backJButton.setBackground(background);
-        backJButton.setForeground(foreground);
-        exitJButton.setBackground(background);
-        exitJButton.setForeground(foreground);
+    public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
+        frame.getContentPane().setBackground(backgroundColor);
+        SetTheme setTheme = new SetTheme(backgroundColor, foregroundColor);
+        setTheme.setJLabelTheme(communicateJLabel);
+        setTheme.setJButtonTheme(backJButton);
+        setTheme.setJButtonTheme(exitJButton);
     }
     public static void main(String[] args) {
         new Errors(args[0]);

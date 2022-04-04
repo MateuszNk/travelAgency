@@ -3,14 +3,7 @@ package com.app.GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class SetTheme {
-
-    private final Color backgroundColor;
-    private final Color foregroundColor;
-    public SetTheme(Color backgroundColor, Color foregroundColor) {
-        this.backgroundColor = backgroundColor;
-        this.foregroundColor = foregroundColor;
-    }
+public record SetTheme(Color backgroundColor, Color foregroundColor) {
 
     public void setJButtonTheme(JButton jButton) {
         jButton.setBackground(backgroundColor);
@@ -25,5 +18,17 @@ public class SetTheme {
     public void setJRadioButton(JRadioButton jRadioButton) {
         jRadioButton.setBackground(backgroundColor);
         jRadioButton.setForeground(foregroundColor);
+    }
+
+    public void setJTextField(JTextField jTextField) {
+        jTextField.setBackground(backgroundColor);
+        jTextField.setForeground(foregroundColor);
+        jTextField.setCaretColor(foregroundColor);
+    }
+
+    public void setJPasswordField(JPasswordField jPasswordField) {
+        jPasswordField.setBackground(backgroundColor);
+        jPasswordField.setForeground(foregroundColor);
+        jPasswordField.setCaretColor(foregroundColor);
     }
 }
