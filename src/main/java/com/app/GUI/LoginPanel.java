@@ -8,6 +8,8 @@ public class LoginPanel extends JComponent {
     public JFrame frame;
     public JTextField loginJTextField;
     public JPasswordField passwordJPasswordField;
+    public static final int WIDTH = 320;
+    public static final int HEIGHT = 250;
 
     public LoginPanel() {
         frame = new JFrame ("Login Panel");
@@ -23,10 +25,13 @@ public class LoginPanel extends JComponent {
         JLabel welcomeJLabel = new JLabel("Please login to continue");
         passwordJPasswordField = new JPasswordField(32);
 
-        frame.setPreferredSize(new Dimension (319, 250));
-        frame.setLayout(null);
-        frame.setLocationRelativeTo(null);
+        //frame.setPreferredSize(new Dimension (319, 250));
 
+        frame.setLayout(null);
+        //frame.setLocationRelativeTo(null);
+
+        Point p=GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        frame.setBounds(p.x - WIDTH / 2, p.y - HEIGHT / 2, WIDTH, HEIGHT);
         frame.add(loginJButton);
         frame.add(returnJButton);
         frame.add(loginJLabel);
@@ -55,7 +60,7 @@ public class LoginPanel extends JComponent {
         });
 
         frame.setResizable(false);
-        frame.pack();
+        //frame.pack();
         frame.setVisible (true);
     }
 }
