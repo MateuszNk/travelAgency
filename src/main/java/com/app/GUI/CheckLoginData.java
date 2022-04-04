@@ -21,9 +21,12 @@ public class CheckLoginData {
     public void getDataFromDatabase(String login, String password) {
         Database db = new Database();
         Connection connection = db.getInDatabase();
+        if ( connection == null ) { return; }
         Statement statement = db.createStatement(connection);
+        if ( statement == null ) { return; }
         String sql = "SELECT LOGIN, PASSWORD from users";
         ResultSet resultSet = db.createCommandInDatabase(statement, sql);
+        if ( resultSet == null ) { return; }
 
         var data = new Hashtable<String, String>();
         try {
@@ -36,29 +39,22 @@ public class CheckLoginData {
             resultSet.close();
             statement.close();
             connection.close();
+            isCorrectLoginData(login, password, data);
         } catch ( Exception e ) {
-            e.printStackTrace();
+            new Errors("Cannot close connection");
         }
-
-        isCorrectLoginData(login, password, data);
     }
 
     public void isCorrectLoginData(String login, String password, Hashtable<String, String> data) {
-        boolean isGoodData = false;
         for ( Map.Entry<String, String> entry : data.entrySet() ) {
-            String k = entry.getKey();
-            String v = entry.getValue();
-            if ( k.equals(login) && v.equals(password) ) {
-                WrongLoginData wrongLoginData = new WrongLoginData("Welcome");
-                wrongLoginData.successfulLogin();
-                isGoodData = true;
-                break;
+            String entryKey = entry.getKey();
+            String entryValue = entry.getValue();
+            if ( entryKey.equals(login) && entryValue.equals(password) ) {
+                // tutaj będzie przekierowanie do menu usera :D
+                return;
             }
         }
 
-        if ( !isGoodData ) {
-            WrongLoginData wrongLoginData = new WrongLoginData("ERROR");
-            wrongLoginData.wrongLoginData();
-        }
+        new Errors("Wrong login and/or password");
     }
 }

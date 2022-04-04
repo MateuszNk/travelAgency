@@ -15,8 +15,8 @@ public class LoginPanel {
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
-        Point p=GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-        frame.setBounds(p.x - WIDTH / 2, p.y - HEIGHT / 2, WIDTH, HEIGHT);
+        var centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
         addComponents();
 
         frame.setResizable(false);

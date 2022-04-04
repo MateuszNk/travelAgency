@@ -1,5 +1,7 @@
 package com.app.database;
 
+import com.app.GUI.Errors;
+
 import java.sql.*;
 
 public class Database {
@@ -11,17 +13,16 @@ public class Database {
     public Connection getInDatabase() {
         Connection connection = null;
         try  {
-            connection = DriverManager
-                    .getConnection(urlToDatabase, loginToDatabase, passwordToDatabase);
+            connection = DriverManager.getConnection(
+                    urlToDatabase, loginToDatabase, passwordToDatabase);
 
             if ( connection == null ) {
                 System.out.println("No connection to database");
                 System.exit(ERROR);
             }
         } catch ( Exception e) {
-            e.printStackTrace();
+            new Errors("No connection to database");
         }
-
         return connection;
     }
 
@@ -30,21 +31,18 @@ public class Database {
         try {
             statement = connection.createStatement();
         } catch ( Exception e ) {
-            e.printStackTrace();
+            new Errors("No connection to database");
         }
-
         return statement;
     }
 
     public ResultSet createCommandInDatabase(Statement statement, String sql) {
         ResultSet resultSet = null;
-
         try {
             resultSet = statement.executeQuery(sql);
         } catch ( Exception e ) {
-            e.printStackTrace();
+            new Errors("No connection to database");
         }
-
         return resultSet;
     }
 }
