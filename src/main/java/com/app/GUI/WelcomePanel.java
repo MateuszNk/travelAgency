@@ -106,7 +106,7 @@ public class WelcomePanel {
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
         frame.getContentPane().setBackground(backgroundColor);
-        SetTheme setTheme = new SetTheme(backgroundColor, foregroundColor);
+        var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJButtonTheme(loginJButton);
         setTheme.setJButtonTheme(registerJButton);
         setTheme.setJButtonTheme(exitJButton);

@@ -74,7 +74,7 @@ public class LoginPanel {
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
         frame.getContentPane().setBackground(backgroundColor);
-        SetTheme setTheme = new SetTheme(backgroundColor, foregroundColor);
+        var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJLabelTheme(welcomeJLabel);
         setTheme.setJLabelTheme(loginJLabel);
         setTheme.setJLabelTheme(passwordJLabel);

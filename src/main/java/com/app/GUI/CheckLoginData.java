@@ -1,5 +1,6 @@
 package com.app.GUI;
 
+import com.app.GUI.usersPanels.AdministratorPanel;
 import com.app.database.Database;
 
 import java.sql.Connection;
@@ -12,10 +13,6 @@ public class CheckLoginData {
 
     public CheckLoginData(String login, String password) {
         getDataFromDatabase(login, password);
-        /*if ( login.equals("admin") ) {
-            Administrator administrator = new Administrator();
-            administrator.menu();
-        }*/
     }
 
     public void getDataFromDatabase(String login, String password) {
@@ -50,7 +47,13 @@ public class CheckLoginData {
             String entryKey = entry.getKey();
             String entryValue = entry.getValue();
             if ( entryKey.equals(login) && entryValue.equals(password) ) {
-                // tutaj będzie przekierowanie do menu usera :D
+                if ( entryKey.equals("admin") ) {
+                    new AdministratorPanel();
+                } else {
+                    // tutaj będzie przekierowanie do menu usera :D
+                    System.out.println("Póki co nic się nie dzieje *sad pepe*");
+                }
+
                 return;
             }
         }

@@ -58,7 +58,7 @@ public class Errors {
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
         frame.getContentPane().setBackground(backgroundColor);
-        SetTheme setTheme = new SetTheme(backgroundColor, foregroundColor);
+        var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJLabelTheme(communicateJLabel);
         setTheme.setJButtonTheme(backJButton);
         setTheme.setJButtonTheme(exitJButton);
