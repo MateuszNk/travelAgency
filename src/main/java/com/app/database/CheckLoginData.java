@@ -3,37 +3,23 @@ package com.app.database;
 import com.app.GUI.Errors;
 import com.app.GUI.usersPanels.AdministratorPanel;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Hashtable;
 import java.util.Map;
 
 public class CheckLoginData {
 
-    public Database database;
-    public Connection connection;
-    public Statement statement;
+    public Connections connections;
     public ResultSet resultSet;
     public CheckLoginData(String login, String password) {
-        database = new Database();
-        connection = database.getInDatabase();
-        if ( connection == null ) { return; }
-        statement = database.createStatement(connection);
-        if ( statement == null ) {
-            try {
-                connection.close();
-            } catch ( Exception e ) {
-                new Errors("Cannot close connection!");
-            }
-        }
+        connections = new Connections();
+        resultSet = connections.getResultSet();
         getDataFromDatabase(login, password);
     }
 
     public void getDataFromDatabase(String login, String password) {
         String sql = "SELECT LOGIN, PASSWORD from users";
-        resultSet = database.createCommandInDatabase(statement, sql);
-        if ( resultSet == null ) { return; }
+        connections.createResultSet(sql);
 
         var data = new Hashtable<String, String>();
         try {
@@ -42,14 +28,12 @@ public class CheckLoginData {
                 String databasePassword = resultSet.getString("PASSWORD");
                 data.put(databaseLogin, databasePassword);
             }
-
-            resultSet.close();
-            statement.close();
-            connection.close();
-            isCorrectLoginData(login, password, data);
         } catch ( Exception e ) {
-            new Errors("Cannot close connection");
+            new Errors("Cannot get data from database!");
         }
+
+        connections.closeAllConnections();
+        isCorrectLoginData(login, password, data);
     }
 
     public void isCorrectLoginData(String login, String password, Hashtable<String, String> data) {

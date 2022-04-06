@@ -12,10 +12,13 @@ public class Connections {
     public Connection connection;
     public Statement statement;
     public ResultSet resultSet;
-    public Connections(String sql) {
+    public Connections() {
         database = new Database();
         connection = database.getInDatabase();
-        if ( connection == null ) { return; }
+        if ( connection == null ) {
+            new Errors("Cannot create connection!");
+        }
+
         statement = database.createStatement(connection);
         if ( statement == null ) {
             try {
@@ -24,6 +27,9 @@ public class Connections {
                 new Errors("Cannot close connection!");
             }
         }
+    }
+
+    public void createResultSet(String sql) {
         resultSet = database.createCommandInDatabase(statement, sql);
         if ( resultSet == null ) {
             try {
@@ -33,5 +39,19 @@ public class Connections {
                 new Errors("Cannot close statement and/or connection!");
             }
         }
+    }
+
+    public void closeAllConnections() {
+        try {
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch ( Exception e ) {
+            new Errors("Cannot close resultSet and/or statement, connection!");
+        }
+    }
+
+    public ResultSet getResultSet() {
+        return resultSet;
     }
 }
