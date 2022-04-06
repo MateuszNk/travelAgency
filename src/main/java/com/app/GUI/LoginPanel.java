@@ -8,21 +8,10 @@ import java.awt.*;
 public class LoginPanel {
 
     public JFrame frame;
-    public static final int WIDTH = 300;
-    public static final int HEIGHT = 250;
     public LoginPanel() {
-        frame = new JFrame ("Login Panel");
-        ImageIcon icon = new ImageIcon("./graphics/mountain.png");
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-
-        var centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-        frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
+        CreateJFrame createJFrame = new CreateJFrame("Login Panel", 300, 250);
+        frame = createJFrame.createJFrame();
         createComponents();
-
-        frame.setResizable(false);
-        frame.setVisible (true);
     }
 
     public JLabel loginJLabel;

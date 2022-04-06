@@ -1,5 +1,6 @@
 package com.app.errors;
 
+import com.app.GUI.CreateJFrame;
 import com.app.GUI.LoginPanel;
 import com.app.GUI.SetTheme;
 
@@ -9,21 +10,11 @@ import java.awt.*;
 public class Errors extends JDialog {
 
     public JFrame frame;
-    public static final int WIDTH = 240;
-    public static final int HEIGHT = 150;
     public Errors(ErrorType errorType) {
-        frame = new JFrame("ERROR");
-        ImageIcon icon = new ImageIcon("./graphics/mountain.png");
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-        frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
-
+        CreateJFrame createJFrame = new CreateJFrame("ERROR", 240, 150);
+        frame = createJFrame.createJFrame();
         String communicate = ReturnErrorCommunicate.returnCommunicate(errorType);
         createJDialog(communicate);
-        frame.setResizable(false);
-        frame.setVisible (true);
     }
 
     public JLabel communicateJLabel;

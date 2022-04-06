@@ -1,5 +1,6 @@
 package com.app.GUI.usersPanels;
 
+import com.app.GUI.CreateJFrame;
 import com.app.GUI.SetTheme;
 import com.app.GUI.WelcomePanel;
 import com.app.database.AdministratorOperations;
@@ -10,21 +11,10 @@ import java.awt.*;
 public class AdministratorPanel {
 
     public JFrame frame;
-    public static final int WIDTH = 250;
-    public static final int HEIGHT = 300;
     public AdministratorPanel() {
-        frame = new JFrame("Administrator Panel");
-        ImageIcon icon = new ImageIcon("./graphics/mountain.png");
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-
-        var centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-        frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
+        CreateJFrame createJFrame = new CreateJFrame("Administrator Panel", 250, 300);
+        frame = createJFrame.createJFrame();
         addComponents();
-
-        frame.setResizable(false);
-        frame.setVisible (true);
     }
 
     public JLabel adminJLabel;

@@ -8,22 +8,10 @@ public class WelcomePanel {
 
     private static final int SUCCESS = 0;
     public JFrame frame;
-    public static final int WIDTH = 280;
-    public static final int HEIGHT = 300;
     public WelcomePanel() {
-        frame = new JFrame("Travel Agency App");
-        ImageIcon icon = new ImageIcon("./graphics/mountain.png");
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setLayout(null);
-        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-        frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
-
+        CreateJFrame createJFrame = new CreateJFrame("Travel Agency App", 280, 300);
+        frame = createJFrame.createJFrame();
         createComponents();
-
-        frame.setResizable(false);
-        frame.setVisible(true);
     }
 
     public JRadioButton darkThemeJRadioButton;
