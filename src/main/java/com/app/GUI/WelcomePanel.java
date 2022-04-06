@@ -20,7 +20,7 @@ public class WelcomePanel {
         Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
         frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
 
-        addComponents();
+        createComponents();
 
         frame.setResizable(false);
         frame.setVisible(true);
@@ -33,7 +33,7 @@ public class WelcomePanel {
     public JButton registerJButton;
     public JButton exitJButton;
     public static boolean isDarkTheme;
-    public void addComponents() {
+    public void createComponents() {
         welcomeJLabel = new JLabel("Welcome in Travel Agency App");
         loginJButton = new JButton("LOG IN");
         registerJButton = new JButton("REGISTER");
@@ -44,8 +44,13 @@ public class WelcomePanel {
         groupOfThemes.add(darkThemeJRadioButton);
         groupOfThemes.add(lightThemeJRadioButton);
 
+        setParametersOfComponents();
         isDarkThemeOn();
+        addActionsListeners();
+        addComponents();
+    }
 
+    public void setParametersOfComponents() {
         darkThemeJRadioButton.setToolTipText("Select this option if you want dark theme");
         lightThemeJRadioButton.setToolTipText("Select this option if you want light theme");
         welcomeJLabel.setBounds(35, 25, 225, 25);
@@ -54,23 +59,6 @@ public class WelcomePanel {
         exitJButton.setBounds(85, 155, 100, 25);
         darkThemeJRadioButton.setBounds(150, 190, 200, 25);
         lightThemeJRadioButton.setBounds(150, 210, 200, 25);
-
-        exitJButton.addActionListener(e -> {
-            frame.dispose();
-            System.exit(SUCCESS);
-        });
-
-        loginJButton.addActionListener(e -> {
-            frame.dispose();
-            new LoginPanel();
-        });
-
-        frame.add(loginJButton);
-        frame.add(registerJButton);
-        frame.add(welcomeJLabel);
-        frame.add(exitJButton);
-        frame.add(darkThemeJRadioButton);
-        frame.add(lightThemeJRadioButton);
     }
 
     public void isDarkThemeOn() {
@@ -113,6 +101,27 @@ public class WelcomePanel {
         setTheme.setJLabelTheme(welcomeJLabel);
         setTheme.setJRadioButton(darkThemeJRadioButton);
         setTheme.setJRadioButton(lightThemeJRadioButton);
+    }
+
+    public void addActionsListeners() {
+        exitJButton.addActionListener(e -> {
+            frame.dispose();
+            System.exit(SUCCESS);
+        });
+
+        loginJButton.addActionListener(e -> {
+            frame.dispose();
+            new LoginPanel();
+        });
+    }
+
+    public void addComponents() {
+        frame.add(loginJButton);
+        frame.add(registerJButton);
+        frame.add(welcomeJLabel);
+        frame.add(exitJButton);
+        frame.add(darkThemeJRadioButton);
+        frame.add(lightThemeJRadioButton);
     }
 
     public static boolean getIsDarkTheme() {

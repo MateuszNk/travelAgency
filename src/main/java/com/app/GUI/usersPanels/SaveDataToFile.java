@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class SaveDataToFile {
 
     public SaveDataToFile() {
-        String sql = "SELECT ID, LOGIN, EMAIL from users";
+        /*String sql = "SELECT ID, LOGIN, EMAIL from users";
         resultSet = database.createCommandInDatabase(statement, sql);
         BufferedWriter writer = null;
         try {
@@ -30,6 +30,6 @@ public class SaveDataToFile {
             } catch (Exception e) {
                 new Errors("Cannot close writer!");
             }
-        }
+        }*/
     }
 }

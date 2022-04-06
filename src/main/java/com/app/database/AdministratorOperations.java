@@ -1,4 +1,4 @@
-package com.app.GUI.usersPanels;
+package com.app.database;
 
 import com.app.GUI.Errors;
 import com.app.database.Database;

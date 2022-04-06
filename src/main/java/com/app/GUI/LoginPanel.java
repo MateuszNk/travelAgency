@@ -1,5 +1,7 @@
 package com.app.GUI;
 
+import com.app.database.CheckLoginData;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,7 +19,7 @@ public class LoginPanel {
 
         var centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
         frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
-        addComponents();
+        createComponents();
 
         frame.setResizable(false);
         frame.setVisible (true);
@@ -30,7 +32,7 @@ public class LoginPanel {
     public JPasswordField passwordJPasswordField;
     public JButton loginJButton;
     public JButton backJButton;
-    public void addComponents() {
+    public void createComponents() {
         loginJButton = new JButton("CONFIRM");
         backJButton = new JButton("BACK");
         loginJLabel = new JLabel("Login:");
@@ -39,13 +41,7 @@ public class LoginPanel {
         welcomeJLabel = new JLabel("Please login to continue");
         passwordJPasswordField = new JPasswordField(32);
 
-        welcomeJLabel.setBounds (70, 20, 200, 25);
-        loginJLabel.setBounds (25, 55, 50, 25);
-        passwordJLabel.setBounds (25, 90, 75, 25);
-        loginJTextField.setBounds (105, 55, 175, 25);
-        passwordJPasswordField.setBounds (105, 85, 175, 25);
-        loginJButton.setBounds (35, 150, 100, 20);
-        backJButton.setBounds (170, 150, 100, 20);
+        setParametersOfComponents();
 
         if ( WelcomePanel.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
@@ -53,23 +49,18 @@ public class LoginPanel {
             paintAllComponents(Color.WHITE, Color.BLACK);
         }
 
-        backJButton.addActionListener(e -> {
-            frame.dispose();
-            new WelcomePanel();
-        });
+        addActionsListeners();
+        addComponents();
+    }
 
-        loginJButton.addActionListener(e -> {
-            frame.dispose();
-            new CheckLoginData(loginJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
-        });
-
-        frame.add(loginJButton);
-        frame.add(backJButton);
-        frame.add(loginJLabel);
-        frame.add(passwordJLabel);
-        frame.add(loginJTextField);
-        frame.add(welcomeJLabel);
-        frame.add(passwordJPasswordField);
+    public void setParametersOfComponents() {
+        welcomeJLabel.setBounds (70, 20, 200, 25);
+        loginJLabel.setBounds (25, 55, 50, 25);
+        passwordJLabel.setBounds (25, 90, 75, 25);
+        loginJTextField.setBounds (105, 55, 175, 25);
+        passwordJPasswordField.setBounds (105, 85, 175, 25);
+        loginJButton.setBounds (35, 150, 100, 20);
+        backJButton.setBounds (170, 150, 100, 20);
     }
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
@@ -82,6 +73,28 @@ public class LoginPanel {
         setTheme.setJPasswordField(passwordJPasswordField);
         setTheme.setJButtonTheme(loginJButton);
         setTheme.setJButtonTheme(backJButton);
+    }
+
+    public void addActionsListeners() {
+        backJButton.addActionListener(e -> {
+            frame.dispose();
+            new WelcomePanel();
+        });
+
+        loginJButton.addActionListener(e -> {
+            frame.dispose();
+            new CheckLoginData(loginJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
+        });
+    }
+
+    public void addComponents() {
+        frame.add(loginJButton);
+        frame.add(backJButton);
+        frame.add(loginJLabel);
+        frame.add(passwordJLabel);
+        frame.add(loginJTextField);
+        frame.add(welcomeJLabel);
+        frame.add(passwordJPasswordField);
     }
 
     public static void main(String[] args) {
