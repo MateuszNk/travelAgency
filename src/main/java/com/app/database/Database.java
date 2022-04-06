@@ -1,6 +1,7 @@
 package com.app.database;
 
-import com.app.GUI.Errors;
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
 
 import java.sql.*;
 
@@ -21,7 +22,7 @@ public class Database {
                 System.exit(ERROR);
             }
         } catch ( Exception e) {
-            new Errors("No connection to database");
+            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
         }
         return connection;
     }
@@ -31,7 +32,7 @@ public class Database {
         try {
             statement = connection.createStatement();
         } catch ( Exception e ) {
-            new Errors("No connection to database");
+            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
         }
         return statement;
     }
@@ -41,7 +42,7 @@ public class Database {
         try {
             resultSet = statement.executeQuery(sql);
         } catch ( Exception e ) {
-            new Errors("No connection to database");
+            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
         }
         return resultSet;
     }

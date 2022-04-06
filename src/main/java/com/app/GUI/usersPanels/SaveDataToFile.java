@@ -1,11 +1,5 @@
 package com.app.GUI.usersPanels;
 
-import com.app.GUI.Errors;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.util.Scanner;
-
 public class SaveDataToFile {
 
     public SaveDataToFile() {

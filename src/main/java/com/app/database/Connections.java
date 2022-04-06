@@ -1,6 +1,7 @@
 package com.app.database;
 
-import com.app.GUI.Errors;
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ public class Connections {
         database = new Database();
         connection = database.getInDatabase();
         if ( connection == null ) {
-            new Errors("Cannot create connection!");
+            new Errors(ErrorType.CANNOT_CREATE_CONNECTION);
         }
 
         statement = database.createStatement(connection);
@@ -24,7 +25,7 @@ public class Connections {
             try {
                 connection.close();
             } catch ( Exception e ) {
-                new Errors("Cannot close connection!");
+                new Errors(ErrorType.CANNOT_CLOSE_CONNECTION);
             }
         }
     }
@@ -36,7 +37,7 @@ public class Connections {
                 statement.close();
                 connection.close();
             } catch ( Exception e ) {
-                new Errors("Cannot close statement and/or connection!");
+                new Errors(ErrorType.CANNOT_CLOSE_STATEMENT_ANDOR_CONNECTION);
             }
         }
     }
@@ -47,7 +48,7 @@ public class Connections {
             statement.close();
             connection.close();
         } catch ( Exception e ) {
-            new Errors("Cannot close resultSet and/or statement, connection!");
+            new Errors(ErrorType.CANNOT_CLOSE_ALL);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.app.database;
 
-import com.app.GUI.Errors;
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
 import com.app.GUI.usersPanels.AdministratorPanel;
 
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class CheckLoginData {
                 data.put(databaseLogin, databasePassword);
             }
         } catch ( Exception e ) {
-            new Errors("Cannot get data from database!");
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
         }
 
         connections.closeAllConnections();
@@ -52,6 +53,6 @@ public class CheckLoginData {
             }
         }
 
-        new Errors("Wrong login and/or password");
+        new Errors(ErrorType.WRONG_LOGIN_ANDOR_PASSWORD);
     }
 }

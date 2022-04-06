@@ -1,6 +1,7 @@
 package com.app.database;
 
-import com.app.GUI.Errors;
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,7 @@ public class AdministratorOperations {
             }
            connections.closeAllConnections();
         } catch ( Exception e ) {
-            new Errors("Cannot get data from database!");
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
         }
     }
 
@@ -64,7 +65,7 @@ public class AdministratorOperations {
             }
             connections.closeAllConnections();
         } catch ( Exception e ) {
-            new Errors("Cannot get data from Database");
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
         }
         if ( !loginIsInDatabase ) {
             System.out.println("Login not found");
@@ -82,10 +83,10 @@ public class AdministratorOperations {
                 preparedStatement.close();
                 connections.connection.close();
             } catch (Exception e) {
-                new Errors("Cannot close preparedStatement and/or connection!");
+                new Errors(ErrorType.CANNOT_CLOSE_PREPARED_STATEMENT_ANDOR_CONNECTION);
             }
         } catch ( Exception e ) {
-            new Errors("preparedStatement doesn't work properly!");
+            new Errors(ErrorType.PREPARED_STATEMENT_DOESNT_WORK_PROPERLY);
         }
     }
 }

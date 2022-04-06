@@ -1,17 +1,17 @@
-package com.app.GUI;
+package com.app.errors;
 
-import com.sun.net.httpserver.Authenticator;
+import com.app.GUI.LoginPanel;
+import com.app.GUI.SetTheme;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Errors extends JDialog {
 
-    public static final int ERROR = 1;
     public JFrame frame;
     public static final int WIDTH = 240;
     public static final int HEIGHT = 150;
-    public Errors(String communicate) {
+    public Errors(ErrorType errorType) {
         frame = new JFrame("ERROR");
         ImageIcon icon = new ImageIcon("./graphics/mountain.png");
         frame.setIconImage(icon.getImage());
@@ -20,8 +20,7 @@ public class Errors extends JDialog {
         Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
         frame.setBounds(centerPoint.x - WIDTH / 2, centerPoint.y - HEIGHT / 2, WIDTH, HEIGHT);
 
-        //addComponents(communicate);
-
+        String communicate = ReturnErrorCommunicate.returnCommunicate(errorType);
         createJDialog(communicate);
         frame.setResizable(false);
         frame.setVisible (true);
@@ -64,6 +63,6 @@ public class Errors extends JDialog {
         setTheme.setJLabelTheme(communicateJLabel);
     }
     public static void main(String[] args) {
-        new Errors("!Hola!");
+        new Errors(ErrorType.CANNOT_CREATE_CONNECTION);
     }
 }
