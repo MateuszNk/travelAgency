@@ -24,6 +24,8 @@ public class ReturnErrorCommunicate {
                 return "preparedStatement doesn't work properly!";
             } case NO_CONNECTION_TO_DATABASE -> {
                 return "No connection to database!";
+            } case ERROR_OF_ERROR -> {
+                return "Critical error!";
             }
             default -> {
                 return "Error of Error!";

@@ -17,10 +17,7 @@ public class Database {
             connection = DriverManager.getConnection(
                     urlToDatabase, loginToDatabase, passwordToDatabase);
 
-            if ( connection == null ) {
-                System.out.println("No connection to database");
-                System.exit(ERROR);
-            }
+            if ( connection == null ) { throw new Exception(); }
         } catch ( Exception e) {
             new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
         }

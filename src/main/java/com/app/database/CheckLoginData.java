@@ -14,7 +14,9 @@ public class CheckLoginData {
     public ResultSet resultSet;
     public CheckLoginData(String login, String password) {
         connections = new Connections();
+        if ( connections.isEverythingGood )
         resultSet = connections.getResultSet();
+        if (connections.isEverythingGood )
         getDataFromDatabase(login, password);
     }
 

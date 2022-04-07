@@ -13,21 +13,32 @@ public class Connections {
     public Connection connection;
     public Statement statement;
     public ResultSet resultSet;
+    public boolean isEverythingGood;
     public Connections() {
         database = new Database();
+        createConnection();
+    }
+
+    public void createConnection() {
         connection = database.getInDatabase();
         if ( connection == null ) {
-            new Errors(ErrorType.CANNOT_CREATE_CONNECTION);
+            return;
         }
+        createStatement();
+    }
 
+    public void createStatement() {
         statement = database.createStatement(connection);
         if ( statement == null ) {
             try {
                 connection.close();
+                isEverythingGood = false;
+                return;
             } catch ( Exception e ) {
-                new Errors(ErrorType.CANNOT_CLOSE_CONNECTION);
+                new Errors(ErrorType.ERROR_OF_ERROR);
             }
         }
+        isEverythingGood = true;
     }
 
     public void createResultSet(String sql) {
@@ -37,7 +48,7 @@ public class Connections {
                 statement.close();
                 connection.close();
             } catch ( Exception e ) {
-                new Errors(ErrorType.CANNOT_CLOSE_STATEMENT_ANDOR_CONNECTION);
+                new Errors(ErrorType.ERROR_OF_ERROR);
             }
         }
     }
@@ -48,11 +59,12 @@ public class Connections {
             statement.close();
             connection.close();
         } catch ( Exception e ) {
+            isEverythingGood = false;
             new Errors(ErrorType.CANNOT_CLOSE_ALL);
         }
+        isEverythingGood = true;
     }
 
-    public ResultSet getResultSet() {
-        return resultSet;
-    }
+    public ResultSet getResultSet() { return resultSet; }
+    public boolean getIsEverythingGood() { return isEverythingGood; }
 }
