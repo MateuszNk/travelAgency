@@ -6,11 +6,10 @@ import com.app.errors.Errors;
 import java.sql.*;
 
 public class Database {
-    private static final int ERROR = 1;
+
     private static final String loginToDatabase = "root";
     private static final String passwordToDatabase = "";
     private static final String urlToDatabase = "jdbc:mysql://localhost:3306/users";
-
     public Connection getInDatabase() {
         Connection connection = null;
         try  {

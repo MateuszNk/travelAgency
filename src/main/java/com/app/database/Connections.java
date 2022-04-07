@@ -45,12 +45,15 @@ public class Connections {
         resultSet = database.createCommandInDatabase(statement, sql);
         if ( resultSet == null ) {
             try {
+                isEverythingGood = false;
                 statement.close();
                 connection.close();
+                return;
             } catch ( Exception e ) {
                 new Errors(ErrorType.ERROR_OF_ERROR);
             }
         }
+        isEverythingGood = true;
     }
 
     public void closeAllConnections() {

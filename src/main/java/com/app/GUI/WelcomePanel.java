@@ -57,6 +57,7 @@ public class WelcomePanel {
             paintAllComponents(Color.WHITE, Color.BLACK);
             isDarkTheme = false;
         }
+
         darkThemeJRadioButton.addItemListener(event -> {
             int state = event.getStateChange();
             if (state == ItemEvent.SELECTED && !isDarkTheme ) {

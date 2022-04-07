@@ -1,5 +1,6 @@
 package com.app.database;
 
+import com.app.GUI.usersPanels.UserPanel;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 import com.app.GUI.usersPanels.AdministratorPanel;
@@ -14,15 +15,19 @@ public class CheckLoginData {
     public ResultSet resultSet;
     public CheckLoginData(String login, String password) {
         connections = new Connections();
-        if ( connections.isEverythingGood )
-        resultSet = connections.getResultSet();
-        if (connections.isEverythingGood )
-        getDataFromDatabase(login, password);
+        if ( connections.isEverythingGood ) {
+            resultSet = connections.getResultSet();
+        }
+        if ( connections.isEverythingGood ) {
+            getDataFromDatabase(login, password);
+        }
     }
 
     public void getDataFromDatabase(String login, String password) {
         String sql = "SELECT LOGIN, PASSWORD from users";
         connections.createResultSet(sql);
+        resultSet = connections.getResultSet();
+        if ( !connections.isEverythingGood ) { return; }
 
         var data = new Hashtable<String, String>();
         try {
@@ -31,12 +36,12 @@ public class CheckLoginData {
                 String databasePassword = resultSet.getString("PASSWORD");
                 data.put(databaseLogin, databasePassword);
             }
+            connections.closeAllConnections();
+            isCorrectLoginData(login, password, data);
         } catch ( Exception e ) {
+            connections.closeAllConnections();
             new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
         }
-
-        connections.closeAllConnections();
-        isCorrectLoginData(login, password, data);
     }
 
     public void isCorrectLoginData(String login, String password, Hashtable<String, String> data) {
@@ -47,10 +52,8 @@ public class CheckLoginData {
                 if ( entryKey.equals("admin") ) {
                     new AdministratorPanel();
                 } else {
-                    // tutaj będzie przekierowanie do menu usera :D
-                    System.out.println("Póki co nic się nie dzieje *sad pepe*");
+                    new UserPanel(login);
                 }
-
                 return;
             }
         }
