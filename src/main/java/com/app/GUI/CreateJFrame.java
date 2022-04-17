@@ -3,10 +3,12 @@ package com.app.GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public record CreateJFrame(String title, int width, int height) {
+public class CreateJFrame {
 
-    public JFrame createJFrame() {
-        JFrame frame = new JFrame(title);
+    public JFrame frame;
+
+    public JFrame createJFrame(String title, int width, int height) {
+        frame = new JFrame(title);
         ImageIcon icon = new ImageIcon("./graphics/mountain.png");
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

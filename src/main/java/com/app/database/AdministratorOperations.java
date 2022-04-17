@@ -31,6 +31,7 @@ public class AdministratorOperations {
     public void displayAllRecordsInDatabase() {
         String sql = "SELECT ID, LOGIN, EMAIL from users";
         connections.createResultSet(sql);
+        resultSet = connections.getResultSet();
         try {
             while ( resultSet.next() ) {
                 int id = resultSet.getInt("ID");
@@ -38,8 +39,8 @@ public class AdministratorOperations {
                 String email = resultSet.getString("EMAIL");
                 System.out.println("ID: " + id + " LOGIN: " + login + " EMAIL: " + email);
             }
-           connections.closeAllConnections();
         } catch ( Exception e ) {
+            connections.closeAllConnections();
             new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
         }
     }

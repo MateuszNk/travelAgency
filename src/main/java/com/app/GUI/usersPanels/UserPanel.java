@@ -11,10 +11,10 @@ public class UserPanel {
 
     public JFrame frame;
     public final String login;
+    public CreateJFrame createJFrame = new CreateJFrame();
     public UserPanel(String login) {
         this.login = login;
-        CreateJFrame createJFrame = new CreateJFrame("User Panel", 300, 450);
-        frame = createJFrame.createJFrame();
+        frame = createJFrame.createJFrame("User Panel", 300, 450);
         createComponents();
     }
 
@@ -41,6 +41,7 @@ public class UserPanel {
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);
         }
+
         addActionsListeners();
         addComponents();
     }

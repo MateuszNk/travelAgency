@@ -2,35 +2,56 @@ package com.app.GUI;
 
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 public class WelcomePanel {
 
     private static final int SUCCESS = 0;
     public JFrame frame;
+    public JMenuBar menuJMenuBar;
+    public JMenu optionsJMenu;
     public WelcomePanel() {
-        CreateJFrame createJFrame = new CreateJFrame("Travel Agency App", 280, 300);
-        frame = createJFrame.createJFrame();
+        CreateJFrame createJFrame = new CreateJFrame();
+        frame = createJFrame.createJFrame("Travel Agency App", 270, 250);
+
+        menuJMenuBar = new JMenuBar();
+        frame.setJMenuBar(menuJMenuBar);
+        optionsJMenu = new JMenu("Options");
+        //optionsJMenu.setMnemonic(KeyEvent.VK_R);
+        menuJMenuBar.add(optionsJMenu);
+
         createComponents();
     }
 
-    public JRadioButton darkThemeJRadioButton;
-    public JRadioButton lightThemeJRadioButton;
     public JLabel welcomeJLabel;
     public JButton loginJButton;
     public JButton registerJButton;
     public JButton exitJButton;
+    public JRadioButtonMenuItem darkThemeJRadioButtonMenuItem;
+    public JRadioButtonMenuItem lightThemeJRadioButtonMenuItem;
+    public JMenu themeMenu;
     public static boolean isDarkTheme;
     public void createComponents() {
         welcomeJLabel = new JLabel("Welcome in Travel Agency App");
         loginJButton = new JButton("LOG IN");
         registerJButton = new JButton("REGISTER");
         exitJButton = new JButton("EXIT");
-        darkThemeJRadioButton = new JRadioButton("Dark Theme");
-        lightThemeJRadioButton = new JRadioButton("Light Theme");
+
         ButtonGroup groupOfThemes = new ButtonGroup();
-        groupOfThemes.add(darkThemeJRadioButton);
-        groupOfThemes.add(lightThemeJRadioButton);
+        //optionsJMenu.addSeparator();
+        themeMenu = new JMenu("Themes");
+
+        lightThemeJRadioButtonMenuItem = new JRadioButtonMenuItem("Light Theme");
+        lightThemeJRadioButtonMenuItem.setSelected(true);
+        groupOfThemes.add(lightThemeJRadioButtonMenuItem);
+        themeMenu.add(lightThemeJRadioButtonMenuItem);
+
+        darkThemeJRadioButtonMenuItem = new JRadioButtonMenuItem("Dark Theme");
+        groupOfThemes.add(darkThemeJRadioButtonMenuItem);
+        themeMenu.add(darkThemeJRadioButtonMenuItem);
+
+        optionsJMenu.add(themeMenu);
 
         setParametersOfComponents();
         isDarkThemeOn();
@@ -39,14 +60,10 @@ public class WelcomePanel {
     }
 
     public void setParametersOfComponents() {
-        darkThemeJRadioButton.setToolTipText("Select this option if you want dark theme");
-        lightThemeJRadioButton.setToolTipText("Select this option if you want light theme");
-        welcomeJLabel.setBounds(35, 25, 225, 25);
-        loginJButton.setBounds(85, 65, 100, 25);
-        registerJButton.setBounds(85, 110, 100, 25);
-        exitJButton.setBounds(85, 155, 100, 25);
-        darkThemeJRadioButton.setBounds(150, 190, 200, 25);
-        lightThemeJRadioButton.setBounds(150, 210, 200, 25);
+        welcomeJLabel.setBounds(20, 20, 300, 20);
+        loginJButton.setBounds(50, 50 , 150, 25);
+        registerJButton.setBounds(50, 90 , 150, 25);
+        exitJButton.setBounds(50, 130 , 150, 25);
     }
 
     public void isDarkThemeOn() {
@@ -58,7 +75,7 @@ public class WelcomePanel {
             isDarkTheme = false;
         }
 
-        darkThemeJRadioButton.addItemListener(event -> {
+        darkThemeJRadioButtonMenuItem.addItemListener(event -> {
             int state = event.getStateChange();
             if (state == ItemEvent.SELECTED && !isDarkTheme ) {
                 isDarkTheme = true;
@@ -69,9 +86,9 @@ public class WelcomePanel {
             }
         });
 
-        lightThemeJRadioButton.addItemListener(event -> {
+        lightThemeJRadioButtonMenuItem.addItemListener(event -> {
             int state = event.getStateChange();
-            if (state == ItemEvent.SELECTED && isDarkTheme ) {
+            if ( state == ItemEvent.SELECTED && isDarkTheme ) {
                 paintAllComponents(Color.WHITE, Color.BLACK);
                 isDarkTheme = false;
             } else if ( state == ItemEvent.DESELECTED && !isDarkTheme ) {
@@ -88,8 +105,11 @@ public class WelcomePanel {
         setTheme.setJButtonTheme(registerJButton);
         setTheme.setJButtonTheme(exitJButton);
         setTheme.setJLabelTheme(welcomeJLabel);
-        setTheme.setJRadioButton(darkThemeJRadioButton);
-        setTheme.setJRadioButton(lightThemeJRadioButton);
+        setTheme.setJMenuBar(menuJMenuBar);
+        setTheme.setJMenu(themeMenu);
+        setTheme.setJMenu(optionsJMenu);
+        setTheme.setJRadioButtonMeuItem(lightThemeJRadioButtonMenuItem);
+        setTheme.setJRadioButtonMeuItem(darkThemeJRadioButtonMenuItem);
     }
 
     public void addActionsListeners() {
@@ -109,8 +129,6 @@ public class WelcomePanel {
         frame.add(registerJButton);
         frame.add(welcomeJLabel);
         frame.add(exitJButton);
-        frame.add(darkThemeJRadioButton);
-        frame.add(lightThemeJRadioButton);
     }
 
     public static boolean getIsDarkTheme() {

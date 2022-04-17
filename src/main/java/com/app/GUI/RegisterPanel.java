@@ -6,8 +6,8 @@ public class RegisterPanel {
 
     public Frame frame;
     public RegisterPanel() {
-        CreateJFrame createJFrame = new CreateJFrame("Register Panel", 500, 500);
-        frame = createJFrame.createJFrame();
+        CreateJFrame createJFrame = new CreateJFrame();
+        frame = createJFrame.createJFrame("Register Panel", 500, 500);
     }
 
     public static void main(String[] args) {

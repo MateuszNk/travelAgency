@@ -12,8 +12,8 @@ public class AdministratorPanel {
 
     public JFrame frame;
     public AdministratorPanel() {
-        CreateJFrame createJFrame = new CreateJFrame("Administrator Panel", 250, 300);
-        frame = createJFrame.createJFrame();
+        CreateJFrame createJFrame = new CreateJFrame();
+        frame = createJFrame.createJFrame("Administrator Panel", 250, 300);
         addComponents();
     }
 
@@ -69,7 +69,8 @@ public class AdministratorPanel {
     public void addActionsListeners() {
         displayAllJButton.addActionListener(e -> {
             frame.dispose();
-            new AdministratorOperations("DISPLAY");
+            //new AdministratorOperations("DISPLAY");
+            new DisplayAllUsers();
         });
         logOutJButton.addActionListener(e -> {
             frame.dispose();

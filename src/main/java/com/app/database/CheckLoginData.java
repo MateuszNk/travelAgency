@@ -36,7 +36,7 @@ public class CheckLoginData {
                 String databasePassword = resultSet.getString("PASSWORD");
                 data.put(databaseLogin, databasePassword);
             }
-            connections.closeAllConnections();
+            //connections.closeAllConnections();
             isCorrectLoginData(login, password, data);
         } catch ( Exception e ) {
             connections.closeAllConnections();
