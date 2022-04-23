@@ -1,18 +1,17 @@
 package com.app.GUI;
 
 import com.app.configuration.CreateConfigurationFile;
-import com.app.database.CheckLoginData;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ConfigureConnectionToDataBasePanel {
 
-    JFrame frame;
+    public JFrame frame;
     public ConfigureConnectionToDataBasePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Configure Connection", 500, 500);
-
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         createComponents();
     }
 
@@ -49,7 +48,7 @@ public class ConfigureConnectionToDataBasePanel {
     }
 
     public void setParametersOfComponents() {
-        welcomeJLabel.setBounds(80, 1, 200, 20);
+        welcomeJLabel.setBounds(80, 1, 300, 25);
 
         urlJLabel.setBounds(25, 55, 50, 25);
         urlJTextField.setBounds(105, 55, 175, 25);
