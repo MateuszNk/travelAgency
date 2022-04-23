@@ -11,15 +11,19 @@ public class WelcomePanel {
     public JFrame frame;
     public JMenuBar menuJMenuBar;
     public JMenu optionsJMenu;
+    public JMenu configurationJMenu;
     public WelcomePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Travel Agency App", 270, 250);
 
         menuJMenuBar = new JMenuBar();
         frame.setJMenuBar(menuJMenuBar);
+
         optionsJMenu = new JMenu("Options");
         //optionsJMenu.setMnemonic(KeyEvent.VK_R);
         menuJMenuBar.add(optionsJMenu);
+        configurationJMenu = new JMenu("Configuration");
+        menuJMenuBar.add(configurationJMenu);
 
         createComponents();
     }
@@ -110,6 +114,7 @@ public class WelcomePanel {
         setTheme.setJMenu(optionsJMenu);
         setTheme.setJRadioButtonMeuItem(lightThemeJRadioButtonMenuItem);
         setTheme.setJRadioButtonMeuItem(darkThemeJRadioButtonMenuItem);
+        setTheme.setJMenu(configurationJMenu);
     }
 
     public void addActionsListeners() {
