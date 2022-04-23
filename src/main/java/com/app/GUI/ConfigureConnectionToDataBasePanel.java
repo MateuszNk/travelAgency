@@ -1,5 +1,6 @@
 package com.app.GUI;
 
+import com.app.configuration.CreateConfigurationFile;
 import com.app.database.CheckLoginData;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class ConfigureConnectionToDataBasePanel {
     JFrame frame;
     public ConfigureConnectionToDataBasePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Configure Connection", 400, 400);
+        frame = createJFrame.createJFrame("Configure Connection", 500, 500);
 
         createComponents();
     }
@@ -31,7 +32,7 @@ public class ConfigureConnectionToDataBasePanel {
         urlJLabel = new JLabel("URL:");
         passwordJLabel = new JLabel("Password:");
         loginJTextField = new JTextField(16);
-        urlJTextField = new JTextField(128);
+        urlJTextField = new JTextField(32);
         welcomeJLabel = new JLabel("Please write data to database");
         passwordJPasswordField = new JPasswordField(32);
 
@@ -48,7 +49,7 @@ public class ConfigureConnectionToDataBasePanel {
     }
 
     public void setParametersOfComponents() {
-        welcomeJLabel.setBounds(80, 1, 200, 70);
+        welcomeJLabel.setBounds(80, 1, 200, 20);
 
         urlJLabel.setBounds(25, 55, 50, 25);
         urlJTextField.setBounds(105, 55, 175, 25);
@@ -83,20 +84,22 @@ public class ConfigureConnectionToDataBasePanel {
 
         confirmJButton.addActionListener(e -> {
             frame.dispose();
-            new CheckLoginData(loginJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
+            new CreateConfigurationFile(urlJTextField.getText(),
+                    loginJTextField.getText(),
+                    String.valueOf(passwordJPasswordField.getPassword()));
         });
     }
 
     public void addComponents() {
-        frame.add(confirmJButton);
-        frame.add(backJButton);
-        frame.add(urlJLabel);
-        frame.add(passwordJLabel);
-        frame.add(loginJTextField);
         frame.add(welcomeJLabel);
-        frame.add(passwordJPasswordField);
+        frame.add(urlJLabel);
         frame.add(urlJTextField);
         frame.add(loginJLabel);
+        frame.add(loginJTextField);
+        frame.add(passwordJLabel);
+        frame.add(passwordJPasswordField);
+        frame.add(confirmJButton);
+        frame.add(backJButton);
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package com.app.GUI;
 
+import com.app.configuration.CreateConfigurationFile;
+
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
@@ -61,6 +63,7 @@ public class WelcomePanel {
         isDarkThemeOn();
         addActionsListeners();
         addComponents();
+        checkIfConfigurationFileExists();
     }
 
     public void setParametersOfComponents() {
@@ -138,6 +141,13 @@ public class WelcomePanel {
 
     public static boolean getIsDarkTheme() {
         return isDarkTheme;
+    }
+
+    public void checkIfConfigurationFileExists() {
+        CreateConfigurationFile ccf = new CreateConfigurationFile();
+        if ( !ccf.fileExists ) {
+            new ConfigureConnectionToDataBasePanel();
+        }
     }
 
     public static void main(String[] args) {
