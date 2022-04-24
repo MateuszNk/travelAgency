@@ -4,7 +4,6 @@ import com.app.configuration.CreateConfigurationFile;
 
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 public class WelcomePanel {

@@ -10,7 +10,7 @@ public class ConfigureConnectionToDataBasePanel {
     public JFrame frame;
     public ConfigureConnectionToDataBasePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Configure Connection", 500, 500);
+        frame = createJFrame.createJFrame("Configure Connection", 310, 270);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         createComponents();
     }
@@ -27,11 +27,12 @@ public class ConfigureConnectionToDataBasePanel {
     public void createComponents() {
         confirmJButton = new JButton("CONFIRM");
         backJButton = new JButton("BACK");
-        loginJLabel = new JLabel("Login:");
         urlJLabel = new JLabel("URL:");
+        urlJTextField = new JTextField(7);
+        loginJLabel = new JLabel("Login:");
         passwordJLabel = new JLabel("Password:");
-        loginJTextField = new JTextField(16);
-        urlJTextField = new JTextField(32);
+        loginJTextField = new JTextField(128);
+
         welcomeJLabel = new JLabel("Please write data to database");
         passwordJPasswordField = new JPasswordField(32);
 
@@ -48,7 +49,7 @@ public class ConfigureConnectionToDataBasePanel {
     }
 
     public void setParametersOfComponents() {
-        welcomeJLabel.setBounds(80, 1, 300, 25);
+        welcomeJLabel.setBounds(50, 15, 300, 25);
 
         urlJLabel.setBounds(25, 55, 50, 25);
         urlJTextField.setBounds(105, 55, 175, 25);
@@ -91,8 +92,6 @@ public class ConfigureConnectionToDataBasePanel {
 
     public void addComponents() {
         frame.add(welcomeJLabel);
-        welcomeJLabel.setEnabled(true);
-        //welcomeJLabel.addMouseMotionListener();
         frame.add(urlJLabel);
         frame.add(urlJTextField);
         frame.add(loginJLabel);
@@ -101,6 +100,7 @@ public class ConfigureConnectionToDataBasePanel {
         frame.add(passwordJPasswordField);
         frame.add(confirmJButton);
         frame.add(backJButton);
+        frame.repaint();
     }
 
     public static void main(String[] args) {
