@@ -91,6 +91,8 @@ public class ConfigureConnectionToDataBasePanel {
 
     public void addComponents() {
         frame.add(welcomeJLabel);
+        welcomeJLabel.setEnabled(true);
+        //welcomeJLabel.addMouseMotionListener();
         frame.add(urlJLabel);
         frame.add(urlJTextField);
         frame.add(loginJLabel);
