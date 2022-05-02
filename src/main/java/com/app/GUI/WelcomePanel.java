@@ -5,6 +5,8 @@ import com.app.configuration.CreateConfigurationFile;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 public class WelcomePanel {
 
@@ -25,6 +27,8 @@ public class WelcomePanel {
         menuJMenuBar.add(configurationJMenu);
 
         createComponents();
+        frame.revalidate();
+        frame.repaint();
     }
 
     public JLabel welcomeJLabel;
@@ -33,7 +37,7 @@ public class WelcomePanel {
     public JButton exitJButton;
     public JRadioButtonMenuItem darkThemeJRadioButtonMenuItem;
     public JRadioButtonMenuItem lightThemeJRadioButtonMenuItem;
-    public JMenu themeMenu;
+    public JMenuItem themeJMenuItem;
     public static boolean isDarkTheme;
     public void createComponents() {
         welcomeJLabel = new JLabel("Welcome in Travel Agency App");
@@ -42,18 +46,19 @@ public class WelcomePanel {
         exitJButton = new JButton("EXIT");
 
         ButtonGroup groupOfThemes = new ButtonGroup();
-        themeMenu = new JMenu("Themes");
+        themeJMenuItem = new JMenu("Themes");
+        themeJMenuItem.setOpaque(true);
 
         lightThemeJRadioButtonMenuItem = new JRadioButtonMenuItem("Light Theme");
         lightThemeJRadioButtonMenuItem.setSelected(true);
         groupOfThemes.add(lightThemeJRadioButtonMenuItem);
-        themeMenu.add(lightThemeJRadioButtonMenuItem);
+        themeJMenuItem.add(lightThemeJRadioButtonMenuItem);
 
         darkThemeJRadioButtonMenuItem = new JRadioButtonMenuItem("Dark Theme");
         groupOfThemes.add(darkThemeJRadioButtonMenuItem);
-        themeMenu.add(darkThemeJRadioButtonMenuItem);
+        themeJMenuItem.add(darkThemeJRadioButtonMenuItem);
 
-        optionsJMenu.add(themeMenu);
+        optionsJMenu.add(themeJMenuItem);
 
         setParametersOfComponents();
         isDarkThemeOn();
@@ -109,14 +114,28 @@ public class WelcomePanel {
         setTheme.setJButtonTheme(exitJButton);
         setTheme.setJLabelTheme(welcomeJLabel);
         setTheme.setJMenuBar(menuJMenuBar);
-        setTheme.setJMenu(themeMenu);
         setTheme.setJMenu(optionsJMenu);
+        setTheme.setJMenu(configurationJMenu);
+        setTheme.setJMenuItem(themeJMenuItem);
         setTheme.setJRadioButtonMeuItem(lightThemeJRadioButtonMenuItem);
         setTheme.setJRadioButtonMeuItem(darkThemeJRadioButtonMenuItem);
-        setTheme.setJMenu(configurationJMenu);
     }
 
     public void addActionsListeners() {
+        configurationJMenu.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent me) {
+                if ( me.getSource() == configurationJMenu && !optionsJMenu.isSelected() )
+                new ConfigureConnectionToDataBasePanel();
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {}
+
+            @Override
+            public void menuDeselected(MenuEvent e) {}
+        });
+
         exitJButton.addActionListener(e -> {
             new DoYouWantToClosePanel();
         });

@@ -2,6 +2,7 @@ package com.app.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class CreateJFrame {
 
@@ -9,7 +10,7 @@ public class CreateJFrame {
 
     public JFrame createJFrame(String title, int width, int height) {
         frame = new JFrame(title);
-        ImageIcon icon = new ImageIcon(getClass().getResource("/graphics/mountain.png"));
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/graphics/mountain.png")));
         frame.setIconImage(icon.getImage());
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);

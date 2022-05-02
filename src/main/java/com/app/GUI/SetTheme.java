@@ -5,7 +5,6 @@ import java.awt.*;
 
 public record SetTheme(Color backgroundColor, Color foregroundColor) {
 
-
     public void setJButtonTheme(JButton jButton) {
         jButton.setBackground(backgroundColor);
         jButton.setForeground(foregroundColor);
@@ -46,5 +45,10 @@ public record SetTheme(Color backgroundColor, Color foregroundColor) {
     public void setJMenuBar(JMenuBar jMenuBar) {
         jMenuBar.setBackground(backgroundColor);
         jMenuBar.setForeground(foregroundColor);
+    }
+
+    public void setJMenuItem(JMenuItem jMenuItem) {
+        jMenuItem.setBackground(backgroundColor);
+        jMenuItem.setForeground(foregroundColor);
     }
 }
