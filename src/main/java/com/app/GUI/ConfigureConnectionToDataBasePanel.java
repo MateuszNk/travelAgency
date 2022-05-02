@@ -10,7 +10,7 @@ public class ConfigureConnectionToDataBasePanel {
     public JFrame frame;
     public ConfigureConnectionToDataBasePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Configure Connection", 310, 270);
+        frame = createJFrame.createJFrame("Configure Connection", 310, 255);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         createComponents();
     }
@@ -60,8 +60,8 @@ public class ConfigureConnectionToDataBasePanel {
         passwordJLabel.setBounds (25, 105, 75, 25);
         passwordJPasswordField.setBounds (105, 105, 175, 25);
 
-        confirmJButton.setBounds (35, 170, 100, 20);
-        backJButton.setBounds (170, 170, 100, 20);
+        confirmJButton.setBounds (35, 150, 100, 20);
+        backJButton.setBounds (170, 150, 100, 20);
     }
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
@@ -69,8 +69,10 @@ public class ConfigureConnectionToDataBasePanel {
         var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJLabelTheme(welcomeJLabel);
         setTheme.setJLabelTheme(urlJLabel);
-        setTheme.setJLabelTheme(passwordJLabel);
+        setTheme.setJTextField(urlJTextField);
+        setTheme.setJLabelTheme(loginJLabel);
         setTheme.setJTextField(loginJTextField);
+        setTheme.setJLabelTheme(passwordJLabel);
         setTheme.setJPasswordField(passwordJPasswordField);
         setTheme.setJButtonTheme(confirmJButton);
         setTheme.setJButtonTheme(backJButton);
@@ -79,7 +81,6 @@ public class ConfigureConnectionToDataBasePanel {
     public void addActionsListeners() {
         backJButton.addActionListener(e -> {
             frame.dispose();
-            new WelcomePanel();
         });
 
         confirmJButton.addActionListener(e -> {

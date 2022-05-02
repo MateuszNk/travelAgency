@@ -11,6 +11,7 @@ public class LoginPanel {
     public LoginPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Login Panel", 300, 250);
+        createJFrame.addWindowListener();
         createComponents();
     }
 

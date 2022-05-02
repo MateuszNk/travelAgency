@@ -11,7 +11,7 @@ public class CreateJFrame {
         frame = new JFrame(title);
         ImageIcon icon = new ImageIcon("./graphics/mountain.png");
         frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
@@ -19,5 +19,15 @@ public class CreateJFrame {
         frame.setResizable(false);
         frame.setVisible(true);
         return frame;
+    }
+
+    public void addWindowListener() {
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                new DoYouWantToClosePanel();
+            }
+        });
     }
 }

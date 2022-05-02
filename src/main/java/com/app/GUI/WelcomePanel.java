@@ -8,20 +8,18 @@ import javax.swing.*;
 
 public class WelcomePanel {
 
-    private static final int SUCCESS = 0;
     public JFrame frame;
     public JMenuBar menuJMenuBar;
     public JMenu optionsJMenu;
     public JMenu configurationJMenu;
     public WelcomePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Travel Agency App", 270, 250);
-
+        frame = createJFrame.createJFrame("Travel Agency App", 260, 255);
+        createJFrame.addWindowListener();
         menuJMenuBar = new JMenuBar();
         frame.setJMenuBar(menuJMenuBar);
 
         optionsJMenu = new JMenu("Options");
-        //optionsJMenu.setMnemonic(KeyEvent.VK_R);
         menuJMenuBar.add(optionsJMenu);
         configurationJMenu = new JMenu("Configuration");
         menuJMenuBar.add(configurationJMenu);
@@ -44,7 +42,6 @@ public class WelcomePanel {
         exitJButton = new JButton("EXIT");
 
         ButtonGroup groupOfThemes = new ButtonGroup();
-        //optionsJMenu.addSeparator();
         themeMenu = new JMenu("Themes");
 
         lightThemeJRadioButtonMenuItem = new JRadioButtonMenuItem("Light Theme");
@@ -121,8 +118,7 @@ public class WelcomePanel {
 
     public void addActionsListeners() {
         exitJButton.addActionListener(e -> {
-            frame.dispose();
-            System.exit(SUCCESS);
+            new DoYouWantToClosePanel();
         });
 
         loginJButton.addActionListener(e -> {
