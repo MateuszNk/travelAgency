@@ -1,5 +1,8 @@
 package com.app.GUI;
 
+import com.app.GUI.creators.CreateJFrame;
+import com.app.GUI.creators.CreateJMenuBar;
+import com.app.GUI.creators.SetTheme;
 import com.app.database.CheckLoginData;
 
 import javax.swing.*;
@@ -11,6 +14,8 @@ public class LoginPanel {
     public LoginPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Login Panel", 300, 250);
+        new CreateJMenuBar(frame);
+
         createJFrame.addWindowListener();
         createComponents();
     }
@@ -33,7 +38,7 @@ public class LoginPanel {
 
         setParametersOfComponents();
 
-        if ( WelcomePanel.getIsDarkTheme() ) {
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);

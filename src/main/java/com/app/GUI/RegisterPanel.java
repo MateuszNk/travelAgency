@@ -1,5 +1,7 @@
 package com.app.GUI;
 
+import com.app.GUI.creators.CreateJFrame;
+
 import java.awt.*;
 
 public class RegisterPanel {

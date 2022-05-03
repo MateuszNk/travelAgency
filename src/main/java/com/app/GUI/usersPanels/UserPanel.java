@@ -1,7 +1,8 @@
 package com.app.GUI.usersPanels;
 
-import com.app.GUI.CreateJFrame;
-import com.app.GUI.SetTheme;
+import com.app.GUI.creators.CreateJFrame;
+import com.app.GUI.creators.CreateJMenuBar;
+import com.app.GUI.creators.SetTheme;
 import com.app.GUI.WelcomePanel;
 
 import javax.swing.*;
@@ -36,7 +37,7 @@ public class UserPanel {
 
         setParametersOfComponents();
 
-        if ( WelcomePanel.getIsDarkTheme() ) {
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);

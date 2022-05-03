@@ -16,11 +16,14 @@ public class Connections {
     public boolean isEverythingGood;
     public Connections() {
         database = new Database();
+        if ( database.getUrlToDatabase() == null ) {
+            return;
+        }
         createConnection();
     }
 
     public void createConnection() {
-        connection = database.getInDatabase();
+        connection = database.createConnection();
         if ( connection == null ) {
             return;
         }

@@ -1,5 +1,8 @@
 package com.app.GUI;
 
+import com.app.GUI.creators.CreateJFrame;
+import com.app.GUI.creators.CreateJMenuBar;
+import com.app.GUI.creators.SetTheme;
 import com.app.configuration.CreateConfigurationFile;
 
 import javax.swing.*;
@@ -28,17 +31,23 @@ public class ConfigureConnectionToDataBasePanel {
         confirmJButton = new JButton("CONFIRM");
         backJButton = new JButton("BACK");
         urlJLabel = new JLabel("URL:");
-        urlJTextField = new JTextField(7);
+        urlJTextField = new JTextField(225);
         loginJLabel = new JLabel("Login:");
         passwordJLabel = new JLabel("Password:");
-        loginJTextField = new JTextField(128);
+        loginJTextField = new JTextField(32);
 
         welcomeJLabel = new JLabel("Please write data to database");
         passwordJPasswordField = new JPasswordField(32);
 
+        CreateConfigurationFile ccf = new CreateConfigurationFile();
+        if ( ccf.fileExists ) {
+            urlJTextField.setText(ccf.getUrlToDatabase());
+            loginJTextField.setText(ccf.getLoginToDatabase());
+            passwordJPasswordField.setText(ccf.getPasswordToDatabase());
+        }
         setParametersOfComponents();
 
-        if ( WelcomePanel.getIsDarkTheme() ) {
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);
@@ -79,9 +88,7 @@ public class ConfigureConnectionToDataBasePanel {
     }
 
     public void addActionsListeners() {
-        backJButton.addActionListener(e -> {
-            frame.dispose();
-        });
+        backJButton.addActionListener(e -> frame.dispose());
 
         confirmJButton.addActionListener(e -> {
             frame.dispose();

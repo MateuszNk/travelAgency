@@ -26,6 +26,8 @@ public class ReturnErrorCommunicate {
                 return "No connection to database!";
             } case ERROR_OF_ERROR -> {
                 return "Critical error!";
+            } case CONFIGURATION_FILE_IS_MISSING -> {
+                return "Configuration file is broken or missing";
             }
             default -> {
                 return "Error of Error!";

@@ -1,4 +1,6 @@
-package com.app.GUI;
+package com.app.GUI.creators;
+
+import com.app.GUI.WelcomePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +25,7 @@ public class DoYouWantToClosePanel {
 
         setParametersOfComponents();
 
-        if ( WelcomePanel.getIsDarkTheme() ) {
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);

@@ -1,9 +1,9 @@
 package com.app.GUI.usersPanels;
 
-import com.app.GUI.CreateJFrame;
-import com.app.GUI.SetTheme;
+import com.app.GUI.creators.CreateJFrame;
+import com.app.GUI.creators.CreateJMenuBar;
+import com.app.GUI.creators.SetTheme;
 import com.app.GUI.WelcomePanel;
-import com.app.database.AdministratorOperations;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +39,7 @@ public class AdministratorPanel {
         logOutJButton.setBounds(50, 170, 150, 25);
         exitJButton.setBounds(50, 210, 150, 25);
 
-        if ( WelcomePanel.getIsDarkTheme() ) {
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);

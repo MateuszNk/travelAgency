@@ -1,10 +1,11 @@
 package com.app.errors;
 
 import com.app.GUI.LoginPanel;
-import com.app.GUI.WelcomePanel;
+import com.app.GUI.creators.CreateJMenuBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Errors {
 
@@ -20,12 +21,17 @@ public class Errors {
 
         Object[] options = {"BACK", "EXIT"};
 
-        if ( WelcomePanel.getIsDarkTheme() ) {
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
             paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
         } else {
             paintAllComponents(Color.WHITE, Color.BLACK);
         }
 
+        frame = new JFrame();
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/graphics/mountain.png")));
+        frame.setIconImage(icon.getImage());
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         int optionOfJOptionPane = JOptionPane.showOptionDialog(
                 frame,
                 communicate,

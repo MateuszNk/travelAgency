@@ -1,5 +1,6 @@
 package com.app.database;
 
+import com.app.configuration.CreateConfigurationFile;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
@@ -7,10 +8,22 @@ import java.sql.*;
 
 public class Database {
 
-    private static final String loginToDatabase = "root";
-    private static final String passwordToDatabase = "";
-    private static final String urlToDatabase = "jdbc:mysql://localhost:3306/users";
-    public Connection getInDatabase() {
+    private String loginToDatabase = null;
+    private String passwordToDatabase = null;
+    private String urlToDatabase = null;
+
+    public Database() {
+        CreateConfigurationFile ccf = new CreateConfigurationFile();
+        if ( !ccf.fileExists ) {
+            new Errors(ErrorType.CONFIGURATION_FILE_IS_MISSING);
+            return;
+        }
+        urlToDatabase = ccf.getUrlToDatabase();
+        loginToDatabase = ccf.getLoginToDatabase();
+        passwordToDatabase = ccf.getPasswordToDatabase();
+    }
+
+    public Connection createConnection() {
         Connection connection = null;
         try  {
             connection = DriverManager.getConnection(
@@ -42,4 +55,6 @@ public class Database {
         }
         return resultSet;
     }
+
+    public String getUrlToDatabase() { return urlToDatabase; }
 }

@@ -1,15 +1,13 @@
 package com.app.GUI.usersPanels;
 
-import com.app.GUI.CreateJFrame;
+import com.app.GUI.creators.CreateJFrame;
 import com.app.database.Connections;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
 import javax.swing.*;
-import java.awt.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
