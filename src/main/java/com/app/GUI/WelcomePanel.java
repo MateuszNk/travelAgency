@@ -65,6 +65,11 @@ public class WelcomePanel {
             frame.dispose();
             new LoginPanel();
         });
+
+        registerJButton.addActionListener(e -> {
+            frame.dispose();
+            new RegisterPanel();
+        });
     }
 
     public void addComponents() {

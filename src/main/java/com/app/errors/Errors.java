@@ -28,6 +28,7 @@ public class Errors {
         }
 
         frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/graphics/mountain.png")));
         frame.setIconImage(icon.getImage());
         frame.setLocationRelativeTo(null);
