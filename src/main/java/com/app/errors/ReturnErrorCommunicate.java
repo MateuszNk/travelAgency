@@ -27,7 +27,15 @@ public class ReturnErrorCommunicate {
             } case ERROR_OF_ERROR -> {
                 return "Critical error!";
             } case CONFIGURATION_FILE_IS_MISSING -> {
-                return "Configuration file is broken or missing";
+                return "Configuration file is broken or missing!";
+            } case PASSWORDS_ARE_NOT_EQUALS -> {
+                return "Passwords are not equals!";
+            } case EMAIL_IS_INVALID -> {
+                return "Email is invalid!";
+            } case FIELDS_ARE_EMPTY -> {
+                return "Some field/s are empty!";
+            } case PASSWORD_IS_NOT_COMPLEXITY -> {
+                return "Password does not meet the requirements";
             }
             default -> {
                 return "Error of Error!";

@@ -3,18 +3,20 @@ package com.app.GUI;
 import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
-import com.app.database.CheckLoginData;
 import com.app.database.CheckRegistrationData;
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class RegisterPanel {
 
     public JFrame frame;
     public RegisterPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Registration Panel", 300, 300);
+        frame = createJFrame.createJFrame("Registration Panel", 320, 420);
         new CreateJMenuBar(frame);
 
         createJFrame.addWindowListener();
@@ -32,6 +34,7 @@ public class RegisterPanel {
     public JTextField emailJTextField;
     public JButton confirmJButton;
     public JButton backJButton;
+    public JTextArea passwordComplexityJTextArea;
     public void createComponents() {
         communicateJLabel = new JLabel("Please write all fields to continue");
         loginJLabel = new JLabel("Login:");
@@ -44,6 +47,15 @@ public class RegisterPanel {
         emailJTextField = new JTextField(32);
         confirmJButton = new JButton("CONFIRM");
         backJButton = new JButton("BACK");
+        passwordComplexityJTextArea = new JTextArea("""
+                Rules for creating a password:
+                  *) Minimum 8 characters,
+                  *) At least one lower case letter,
+                  *) At least one capital letter,
+                  *) At least one digit,
+                  *) At least one special character (ex. "!", "@"),
+                  *) Cannot be related to login and e-mail""");
+        passwordComplexityJTextArea.setEditable(false);
 
         setParametersOfComponents();
 
@@ -69,6 +81,7 @@ public class RegisterPanel {
         emailJTextField.setBounds(105, 160, 175, 25);
         confirmJButton.setBounds (35, 200, 100, 20);
         backJButton.setBounds (170, 200, 100, 20);
+        passwordComplexityJTextArea.setBounds(15, 240, 300, 150);
     }
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
@@ -94,9 +107,84 @@ public class RegisterPanel {
         });
 
         confirmJButton.addActionListener(e -> {
+            checkIfFieldsAreEmpty();
             frame.dispose();
             new CheckRegistrationData();
         });
+    }
+
+    public void checkIfFieldsAreEmpty() {
+        if ( loginJTextField == null || passwordJPasswordField == null
+                || repeatPasswordJPasswordField == null || emailJTextField == null ) {
+            new Errors(ErrorType.FIELDS_ARE_EMPTY);
+        }
+        checkPasswords();
+        checkPasswordComplexity();
+        checkEmail();
+    }
+
+    public void checkPasswords() {
+         if ( !String.valueOf(passwordJPasswordField.getPassword()).equals(
+                 String.valueOf(repeatPasswordJPasswordField.getPassword())) ) {
+            new Errors(ErrorType.PASSWORDS_ARE_NOT_EQUALS);
+        }
+    }
+
+    public void checkPasswordComplexity() {
+        String[] specialChars = {"!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "+", "=", "\\", "|",
+                "[", "{", "]", "}", ";", ":", "'", "\"", ",", "<", ".", ">", "/", "?"};
+        String letters = "qwertyuiopasdfghjklzxcvbnm";
+        String numbers = "1234567890";
+
+        Boolean[] trues = new Boolean[5];
+        Arrays.fill(trues, Boolean.FALSE);
+        if ( String.valueOf(passwordJPasswordField.getPassword()).length() > 8 ) {
+            trues[0] = false;
+        }
+
+        for ( String x : specialChars ) {
+            if ( !trues[1] && String.valueOf(passwordJPasswordField.getPassword()).contains(x) ) {
+                trues[1] = true;
+                break;
+            }
+        }
+
+        for ( int i = 0; i < letters.length(); i++ ) {
+            char c = letters.charAt(i);
+            if ( String.valueOf(passwordJPasswordField.getPassword()).contains(String.valueOf(c)) ) {
+                trues[2] = true;
+                break;
+            }
+        }
+
+        for ( int i = 0; i < letters.length(); i++ ) {
+            char c = letters.toUpperCase().charAt(i);
+            if ( String.valueOf(passwordJPasswordField.getPassword()).contains(String.valueOf(c)) ) {
+                trues[3] = true;
+                break;
+            }
+        }
+
+        for ( int i = 0; i < numbers.length(); i++ ) {
+            char c = numbers.charAt(i);
+            if ( String.valueOf(passwordJPasswordField.getPassword()).contains(String.valueOf(c)) ) {
+                trues[4] = true;
+                break;
+            }
+        }
+
+        for ( boolean isPasswordComplexity : trues ) {
+            if ( !isPasswordComplexity ) {
+                new Errors(ErrorType.PASSWORD_IS_NOT_COMPLEXITY);
+            }
+        }
+    }
+
+    public void checkEmail() {
+        String isCorrectEmail = emailJTextField.getText().substring(emailJTextField.getText().lastIndexOf("@") + 1);
+        if ( !emailJTextField.getText().contains("@")  || !isCorrectEmail.contains(".") ) {
+            new Errors(ErrorType.EMAIL_IS_INVALID);
+        }
     }
 
     public void addComponents() {
@@ -111,7 +199,12 @@ public class RegisterPanel {
         frame.add(repeatPasswordJLabel);
         frame.add(repeatPasswordJPasswordField);
         frame.add(confirmJButton);
+        frame.add(passwordComplexityJTextArea);
     }
+
+    public String getLoginJTextField() { return loginJTextField.getText(); }
+    public String getPasswordJPasswordField() { return String.valueOf(passwordJPasswordField.getPassword()); }
+    public String getEmailJTextField() { return emailJTextField.getText(); }
 
     public static void main(String[] args) {
         new RegisterPanel();

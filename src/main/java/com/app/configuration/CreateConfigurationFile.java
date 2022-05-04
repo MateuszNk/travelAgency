@@ -1,5 +1,8 @@
 package com.app.configuration;
 
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -42,7 +45,7 @@ public class CreateConfigurationFile {
                 else
                     passwordToDatabase = null;
             } catch ( Exception e ) {
-                e.printStackTrace();
+                new Errors(ErrorType.ERROR_OF_ERROR);
             }
 
             fileExists = true;
@@ -59,22 +62,14 @@ public class CreateConfigurationFile {
             myWriter.write(urlToDatabase + "\n" + loginToDatabase + "\n" + passwordToDatabase);
             myWriter.close();
         } catch ( Exception e ) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            new Errors(ErrorType.ERROR_OF_ERROR);
         }
     }
 
-    public String getUrlToDatabase() {
-        return urlToDatabase;
-    }
+    public String getUrlToDatabase() { return urlToDatabase; }
+    public String getLoginToDatabase() { return loginToDatabase; }
+    public String getPasswordToDatabase() { return passwordToDatabase; }
 
-    public String getLoginToDatabase() {
-        return loginToDatabase;
-    }
-
-    public String getPasswordToDatabase() {
-        return passwordToDatabase;
-    }
     public static void main(String[] args) {
         new CreateConfigurationFile("jdbc:mysql://localhost:3306/users",
             "root",
