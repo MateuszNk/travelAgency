@@ -1,7 +1,5 @@
 package com.app.GUI.creators;
 
-import com.app.GUI.WelcomePanel;
-
 import javax.swing.*;
 import java.awt.*;
 

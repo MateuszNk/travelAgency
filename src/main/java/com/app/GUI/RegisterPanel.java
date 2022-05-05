@@ -16,7 +16,8 @@ public class RegisterPanel {
     public JFrame frame;
     public RegisterPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Registration Panel", 320, 420);
+        frame = createJFrame.createJFrame("Registration Panel", 320, 440);
+        createJFrame.addWindowListener();
         new CreateJMenuBar(frame);
 
         createJFrame.addWindowListener();
@@ -109,25 +110,28 @@ public class RegisterPanel {
         confirmJButton.addActionListener(e -> {
             checkIfFieldsAreEmpty();
             frame.dispose();
-            new CheckRegistrationData();
+            new CheckRegistrationData(loginJTextField.getText(), emailJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
         });
     }
 
     public void checkIfFieldsAreEmpty() {
-        if ( loginJTextField == null || passwordJPasswordField == null
-                || repeatPasswordJPasswordField == null || emailJTextField == null ) {
+        if ( loginJTextField.getText().isEmpty()
+                || String.valueOf(passwordJPasswordField.getPassword()).isEmpty()
+                || String.valueOf(repeatPasswordJPasswordField.getPassword()).isEmpty()
+                || emailJTextField.getText().isEmpty() ) {
             new Errors(ErrorType.FIELDS_ARE_EMPTY);
+            return;
         }
         checkPasswords();
-        checkPasswordComplexity();
-        checkEmail();
     }
 
     public void checkPasswords() {
          if ( !String.valueOf(passwordJPasswordField.getPassword()).equals(
                  String.valueOf(repeatPasswordJPasswordField.getPassword())) ) {
             new Errors(ErrorType.PASSWORDS_ARE_NOT_EQUALS);
+            return;
         }
+        checkPasswordComplexity();
     }
 
     public void checkPasswordComplexity() {
@@ -136,15 +140,16 @@ public class RegisterPanel {
         String letters = "qwertyuiopasdfghjklzxcvbnm";
         String numbers = "1234567890";
 
-        Boolean[] trues = new Boolean[5];
-        Arrays.fill(trues, Boolean.FALSE);
+        Boolean[] isPasswordComplexity = new Boolean[5];
+        Arrays.fill(isPasswordComplexity, Boolean.FALSE);
         if ( String.valueOf(passwordJPasswordField.getPassword()).length() > 8 ) {
-            trues[0] = false;
+            isPasswordComplexity[0] = true;
         }
 
         for ( String x : specialChars ) {
-            if ( !trues[1] && String.valueOf(passwordJPasswordField.getPassword()).contains(x) ) {
-                trues[1] = true;
+            if ( !isPasswordComplexity[1] &&
+                    String.valueOf(passwordJPasswordField.getPassword()).contains(x) ) {
+                isPasswordComplexity[1] = true;
                 break;
             }
         }
@@ -152,7 +157,7 @@ public class RegisterPanel {
         for ( int i = 0; i < letters.length(); i++ ) {
             char c = letters.charAt(i);
             if ( String.valueOf(passwordJPasswordField.getPassword()).contains(String.valueOf(c)) ) {
-                trues[2] = true;
+                isPasswordComplexity[2] = true;
                 break;
             }
         }
@@ -160,7 +165,7 @@ public class RegisterPanel {
         for ( int i = 0; i < letters.length(); i++ ) {
             char c = letters.toUpperCase().charAt(i);
             if ( String.valueOf(passwordJPasswordField.getPassword()).contains(String.valueOf(c)) ) {
-                trues[3] = true;
+                isPasswordComplexity[3] = true;
                 break;
             }
         }
@@ -168,16 +173,18 @@ public class RegisterPanel {
         for ( int i = 0; i < numbers.length(); i++ ) {
             char c = numbers.charAt(i);
             if ( String.valueOf(passwordJPasswordField.getPassword()).contains(String.valueOf(c)) ) {
-                trues[4] = true;
+                isPasswordComplexity[4] = true;
                 break;
             }
         }
 
-        for ( boolean isPasswordComplexity : trues ) {
-            if ( !isPasswordComplexity ) {
+        for ( boolean x : isPasswordComplexity ) {
+            if ( !x ) {
                 new Errors(ErrorType.PASSWORD_IS_NOT_COMPLEXITY);
+                return;
             }
         }
+        checkEmail();
     }
 
     public void checkEmail() {

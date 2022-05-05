@@ -1,5 +1,4 @@
-
-package com.app.errors;
+package com.app.GUI;
 
 import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
@@ -8,23 +7,21 @@ import com.app.GUI.creators.SetTheme;
 import javax.swing.*;
 import java.awt.*;
 
-public class Errors {
+public class SuccessfullyRegisteredPanel {
+
     public JFrame frame;
-    public Errors(ErrorType errorType) {
+    public SuccessfullyRegisteredPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Error", 200, 150);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        String communicate = ReturnErrorCommunicate.returnCommunicate(errorType);
-        createComponents(communicate);
+        frame = createJFrame.createJFrame("Success", 200, 150);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        createComponents();
     }
 
     public JLabel communicateJLabel;
     public JButton okJButton;
-    public JButton exitJButton;
-    public void createComponents(String communicate) {
-        communicateJLabel = new JLabel(communicate);
+    public void createComponents() {
+        communicateJLabel = new JLabel("Successfully Registered");
         okJButton = new JButton("OK");
-        exitJButton = new JButton("EXIT");
 
         setParametersOfComponents();
 
@@ -40,8 +37,7 @@ public class Errors {
 
     public void setParametersOfComponents() {
         communicateJLabel.setBounds(20, 10, 200, 20);
-        okJButton.setBounds(10, 45, 80, 25);
-        exitJButton.setBounds(110, 45, 80, 25);
+        okJButton.setBounds(60, 45, 60, 25);
     }
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
@@ -49,26 +45,21 @@ public class Errors {
         var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJLabelTheme(communicateJLabel);
         setTheme.setJButtonTheme(okJButton);
-        setTheme.setJButtonTheme(exitJButton);
     }
 
-    private static final int SUCCESS = 0;
     public void addActionsListeners() {
-        exitJButton.addActionListener(e -> {
-            frame.dispose();
-            System.exit(SUCCESS);
-        });
-
         okJButton.addActionListener(e -> {
             frame.dispose();
+            new LoginPanel();
         });
     }
 
     public void addComponents() {
         frame.add(okJButton);
-        frame.add(exitJButton);
         frame.add(communicateJLabel);
     }
 
-    public static void main(String[] args) { new Errors(ErrorType.ERROR_OF_ERROR); }
+    public static void main(String[] args) {
+        new SuccessfullyRegisteredPanel();
+    }
 }
