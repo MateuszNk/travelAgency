@@ -63,7 +63,7 @@ public class DeleteUserByLoginPanel {
     public void addActionsListeners() {
         deleteJButton.addActionListener(e -> {
             frame.dispose();
-            new DeleteRecordFromDatabase();
+            new DeleteRecordFromDatabase(loginJTextField.getText());
         });
 
         cancelJButton.addActionListener(e -> {

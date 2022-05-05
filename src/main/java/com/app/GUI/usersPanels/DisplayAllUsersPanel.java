@@ -5,6 +5,7 @@ import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
 import com.app.configuration.CreateFileWithRecords;
 import com.app.database.Connections;
+import com.app.database.DeleteRecordFromDatabase;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 

@@ -3,7 +3,6 @@ package com.app.database;
 import com.app.GUI.SuccessfullyRegisteredPanel;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class AddRecordToDatabase {
 

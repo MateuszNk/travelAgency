@@ -112,6 +112,7 @@ public class RegisterPanel {
             frame.dispose();
             new CheckRegistrationData(loginJTextField.getText(), emailJTextField.getText(),
                     String.valueOf(passwordJPasswordField.getPassword()));
+            new LoginPanel();
         });
     }
 
