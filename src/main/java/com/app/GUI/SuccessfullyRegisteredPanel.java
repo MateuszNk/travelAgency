@@ -10,7 +10,9 @@ import java.awt.*;
 public class SuccessfullyRegisteredPanel {
 
     public JFrame frame;
-    public SuccessfullyRegisteredPanel() {
+    private final String communicate;
+    public SuccessfullyRegisteredPanel(String communicate) {
+        this.communicate = communicate;
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Success", 200, 150);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -20,7 +22,7 @@ public class SuccessfullyRegisteredPanel {
     public JLabel communicateJLabel;
     public JButton okJButton;
     public void createComponents() {
-        communicateJLabel = new JLabel("Successfully Registered");
+        communicateJLabel = new JLabel(communicate);
         okJButton = new JButton("OK");
 
         setParametersOfComponents();
@@ -60,6 +62,6 @@ public class SuccessfullyRegisteredPanel {
     }
 
     public static void main(String[] args) {
-        new SuccessfullyRegisteredPanel();
+        new SuccessfullyRegisteredPanel("Wololo");
     }
 }

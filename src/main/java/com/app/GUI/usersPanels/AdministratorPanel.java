@@ -69,13 +69,14 @@ public class AdministratorPanel {
     public void addActionsListeners() {
         displayAllJButton.addActionListener(e -> {
             frame.dispose();
-            //new AdministratorOperations("DISPLAY");
             new DisplayAllUsers();
         });
+
         logOutJButton.addActionListener(e -> {
             frame.dispose();
             new WelcomePanel();
         });
+
         exitJButton.addActionListener(e -> {
             frame.dispose();
             System.exit(SUCCESS);

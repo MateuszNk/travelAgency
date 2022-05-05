@@ -110,7 +110,8 @@ public class RegisterPanel {
         confirmJButton.addActionListener(e -> {
             checkIfFieldsAreEmpty();
             frame.dispose();
-            new CheckRegistrationData(loginJTextField.getText(), emailJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
+            new CheckRegistrationData(loginJTextField.getText(), emailJTextField.getText(),
+                    String.valueOf(passwordJPasswordField.getPassword()));
         });
     }
 

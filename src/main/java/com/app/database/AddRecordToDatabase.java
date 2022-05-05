@@ -26,7 +26,6 @@ public class AddRecordToDatabase {
 
     public void addUserToDatabase(String login, String password, String email) {
         PreparedStatement preparedStatement = null;
-        //connections.createStatement();
         try  {
             String insertQuery = "INSERT INTO `users` (`ID`, `LOGIN`, `PASSWORD`, `EMAIL`)" + "VALUES(?, ?, ?, ?)";
             preparedStatement = connections.connection.prepareStatement(insertQuery);
@@ -40,12 +39,12 @@ public class AddRecordToDatabase {
         } finally {
             try {
                 preparedStatement.close();
-                //connections.closeAllConnections();
+                connections.closeAllConnections();
             } catch ( Exception e ) {
                 e.printStackTrace();
             }
         }
 
-        new SuccessfullyRegisteredPanel();
+        new SuccessfullyRegisteredPanel("Successfully Registered");
     }
 }
