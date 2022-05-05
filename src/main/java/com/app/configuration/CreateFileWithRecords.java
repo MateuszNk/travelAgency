@@ -8,9 +8,6 @@ import com.app.errors.Errors;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class CreateFileWithRecords {
 
@@ -24,9 +21,6 @@ public class CreateFileWithRecords {
         try {
             configurationFile.createNewFile();
             FileWriter myWriter = new FileWriter(pathToConfigurationFile);
-            //myWriter.write(id + "   " + login + "   " + email);
-            /*myWriter.append(String.valueOf(id)).append("   ").append(login).append("   ").append(email);
-            myWriter.close();*/
             createResults(myWriter);
         } catch ( Exception e ) {
             new Errors(ErrorType.ERROR_OF_ERROR);

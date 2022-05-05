@@ -52,7 +52,6 @@ public class SuccessfullyRegisteredPanel {
     public void addActionsListeners() {
         okJButton.addActionListener(e -> {
             frame.dispose();
-            new LoginPanel();
         });
     }
 

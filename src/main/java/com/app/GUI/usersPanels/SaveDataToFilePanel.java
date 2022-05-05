@@ -1,8 +1,8 @@
 package com.app.GUI.usersPanels;
 
-public class SaveDataToFile {
+public class SaveDataToFilePanel {
 
-    public SaveDataToFile() {
+    public SaveDataToFilePanel() {
         /*String sql = "SELECT ID, LOGIN, EMAIL from users";
         resultSet = database.createCommandInDatabase(statement, sql);
         BufferedWriter writer = null;

@@ -1,24 +1,15 @@
 package com.app.database;
 
 import com.app.GUI.SuccessfullyRegisteredPanel;
-import com.app.errors.ErrorType;
-import com.app.errors.Errors;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Hashtable;
-import java.util.Map;
 
 public class AddRecordToDatabase {
 
     public Connections connections;
-    public ResultSet resultSet;
     public AddRecordToDatabase(String login, String password, String email) {
         connections = new Connections();
-        if ( connections.isEverythingGood ) {
-            resultSet = connections.getResultSet();
-        }
         if ( connections.isEverythingGood ) {
             addUserToDatabase(login, password, email);
         }
@@ -39,7 +30,7 @@ public class AddRecordToDatabase {
         } finally {
             try {
                 preparedStatement.close();
-                connections.closeAllConnections();
+                connections.connection.close();
             } catch ( Exception e ) {
                 e.printStackTrace();
             }

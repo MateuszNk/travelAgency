@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 
-public class DisplayAllUsers {
+public class DisplayAllUsersPanel {
 
     private JFrame frame;
     private JButton backJButton;
     private JButton saveDataToFileJButton;
     private JTextArea recordsJTextField;
-    public DisplayAllUsers() {
+    public DisplayAllUsersPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Display Users", 500, 500);
 
@@ -90,6 +90,6 @@ public class DisplayAllUsers {
     }
 
     public static void main(String[] args) {
-        new DisplayAllUsers();
+        new DisplayAllUsersPanel();
     }
 }

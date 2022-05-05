@@ -1,5 +1,6 @@
 package com.app.GUI.usersPanels;
 
+import com.app.GUI.RegisterPanel;
 import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
@@ -14,6 +15,7 @@ public class AdministratorPanel {
     public AdministratorPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Administrator Panel", 250, 300);
+        createJFrame.addWindowListener();
         addComponents();
     }
 
@@ -69,7 +71,15 @@ public class AdministratorPanel {
     public void addActionsListeners() {
         displayAllJButton.addActionListener(e -> {
             frame.dispose();
-            new DisplayAllUsers();
+            new DisplayAllUsersPanel();
+        });
+
+        addNewUserJButton.addActionListener(e -> {
+            new RegisterPanel();
+        });
+
+        deleteUserJButton.addActionListener(e -> {
+            new DeleteUserByLoginPanel();
         });
 
         logOutJButton.addActionListener(e -> {
