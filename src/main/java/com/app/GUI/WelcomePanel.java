@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class WelcomePanel {
 
-    public JFrame frame;
+    private final JFrame frame;
     public WelcomePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Travel Agency App", 260, 255);
@@ -22,10 +22,10 @@ public class WelcomePanel {
         frame.repaint();
     }
 
-    public JLabel welcomeJLabel;
-    public JButton loginJButton;
-    public JButton registerJButton;
-    public JButton exitJButton;
+    private JLabel welcomeJLabel;
+    private JButton loginJButton;
+    private JButton registerJButton;
+    private JButton exitJButton;
     public void createComponents() {
         welcomeJLabel = new JLabel("Welcome in Travel Agency App");
         loginJButton = new JButton("LOG IN");
@@ -77,9 +77,5 @@ public class WelcomePanel {
         frame.add(registerJButton);
         frame.add(welcomeJLabel);
         frame.add(exitJButton);
-    }
-
-    public static void main(String[] args) {
-        new WelcomePanel();
     }
 }

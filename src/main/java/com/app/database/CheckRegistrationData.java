@@ -1,7 +1,7 @@
 package com.app.database;
 
 import com.app.GUI.LoginPanel;
-import com.app.GUI.SuccessfullyRegisteredPanel;
+import com.app.GUI.SuccessfulOperationPanel;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
@@ -49,7 +49,7 @@ public class CheckRegistrationData {
             isTakenLoginOrEmail(data);
         } catch ( Exception e ) {
             connections.closeAllConnections();
-            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE, null);
         }
     }
 
@@ -59,7 +59,7 @@ public class CheckRegistrationData {
             String entryKey = entry.getKey();
             String entryValue = entry.getValue();
             if ( entryKey.equals(login) || entryValue.equals(email) ) {
-                new Errors(ErrorType.LOGIN_OR_EMAIL_IS_TAKEN);
+                new Errors(ErrorType.LOGIN_OR_EMAIL_IS_TAKEN, null);
                 isTaken = true;
                 break;
             }
@@ -67,8 +67,6 @@ public class CheckRegistrationData {
 
         if ( !isTaken ) {
             new AddRecordToDatabase(login, password, email);
-            new LoginPanel();
-            new SuccessfullyRegisteredPanel("Successfully registered");
         }
     }
 

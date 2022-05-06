@@ -1,6 +1,6 @@
 package com.app.database;
 
-import com.app.GUI.SuccessfullyRegisteredPanel;
+import com.app.GUI.SuccessfulOperationPanel;
 
 import java.sql.PreparedStatement;
 
@@ -35,6 +35,6 @@ public class AddRecordToDatabase {
             }
         }
 
-        new SuccessfullyRegisteredPanel("Successfully Registered");
+        new SuccessfulOperationPanel("Successfully Registered", null);
     }
 }

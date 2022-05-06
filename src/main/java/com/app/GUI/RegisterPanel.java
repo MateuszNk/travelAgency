@@ -3,8 +3,9 @@ package com.app.GUI;
 import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
-import com.app.configuration.CreateConfigurationFile;
+import com.app.files.CreateConfigurationFile;
 import com.app.database.CheckRegistrationData;
+import com.app.database.Database;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
@@ -14,36 +15,38 @@ import java.util.Arrays;
 
 public class RegisterPanel {
 
-    public JFrame frame;
+    private final JFrame frame;
     public RegisterPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Registration Panel", 320, 440);
         createJFrame.addWindowListener();
         new CreateJMenuBar(frame);
-
-        frame.setVisible(false);
         createJFrame.addWindowListener();
+
         CreateConfigurationFile ccf = new CreateConfigurationFile();
         if ( !ccf.fileExists ) {
             new Errors(ErrorType.CONFIGURATION_FILE_IS_MISSING, frame);
-            new ConfigureConnectionToDataBasePanel(frame, true);
+            new ConfigureConnectionToDatabasePanel(frame, true);
+        } else if ( new Database().createConnection() == null ) {
+            new ConfigureConnectionToDatabasePanel(frame, true);
         }
+
         frame.setVisible(true);
         createComponents();
     }
 
-    public JLabel communicateJLabel;
-    public JLabel loginJLabel;
-    public JTextField loginJTextField;
-    public JLabel passwordJLabel;
-    public JPasswordField passwordJPasswordField;
-    public JLabel repeatPasswordJLabel;
-    public JPasswordField repeatPasswordJPasswordField;
-    public JLabel emailJLabel;
-    public JTextField emailJTextField;
-    public JButton confirmJButton;
-    public JButton backJButton;
-    public JTextArea passwordComplexityJTextArea;
+    private JLabel communicateJLabel;
+    private JLabel loginJLabel;
+    private JTextField loginJTextField;
+    private JLabel passwordJLabel;
+    private JPasswordField passwordJPasswordField;
+    private JLabel repeatPasswordJLabel;
+    private JPasswordField repeatPasswordJPasswordField;
+    private JLabel emailJLabel;
+    private JTextField emailJTextField;
+    private JButton confirmJButton;
+    private JButton backJButton;
+    private JTextArea passwordComplexityJTextArea;
     public void createComponents() {
         communicateJLabel = new JLabel("Please write all fields to continue");
         loginJLabel = new JLabel("Login:");
@@ -133,7 +136,7 @@ public class RegisterPanel {
                 || String.valueOf(repeatPasswordJPasswordField.getPassword()).isEmpty()
                 || emailJTextField.getText().isEmpty() ) {
             isError = true;
-            new Errors(ErrorType.FIELDS_ARE_EMPTY);
+            new Errors(ErrorType.FIELDS_ARE_EMPTY, null);
             return;
         }
         checkPasswords();
@@ -143,7 +146,7 @@ public class RegisterPanel {
          if ( !String.valueOf(passwordJPasswordField.getPassword()).equals(
                  String.valueOf(repeatPasswordJPasswordField.getPassword())) ) {
              isError = true;
-            new Errors(ErrorType.PASSWORDS_ARE_NOT_EQUALS);
+            new Errors(ErrorType.PASSWORDS_ARE_NOT_EQUALS, null);
             return;
         }
         checkPasswordComplexity();
@@ -196,7 +199,7 @@ public class RegisterPanel {
         for ( boolean x : isPasswordComplexity ) {
             if ( !x ) {
                 isError = true;
-                new Errors(ErrorType.PASSWORD_IS_NOT_COMPLEXITY);
+                new Errors(ErrorType.PASSWORD_IS_NOT_COMPLEXITY, null);
                 return;
             }
         }
@@ -206,7 +209,7 @@ public class RegisterPanel {
     public void checkEmail() {
         String isCorrectEmail = emailJTextField.getText().substring(emailJTextField.getText().lastIndexOf("@") + 1);
         if ( !emailJTextField.getText().contains("@")  || !isCorrectEmail.contains(".") ) {
-            new Errors(ErrorType.EMAIL_IS_INVALID);
+            new Errors(ErrorType.EMAIL_IS_INVALID, frame);
         }
     }
 
@@ -223,9 +226,5 @@ public class RegisterPanel {
         frame.add(repeatPasswordJPasswordField);
         frame.add(confirmJButton);
         frame.add(passwordComplexityJTextArea);
-    }
-
-    public static void main(String[] args) {
-        new RegisterPanel();
     }
 }

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class DeleteUserByLoginPanel {
 
-    private JFrame frame;
+    private final JFrame frame;
     public DeleteUserByLoginPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Administrator Panel", 300, 200);

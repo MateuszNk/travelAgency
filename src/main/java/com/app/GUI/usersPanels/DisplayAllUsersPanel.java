@@ -3,9 +3,8 @@ package com.app.GUI.usersPanels;
 import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
-import com.app.configuration.CreateFileWithRecords;
+import com.app.files.CreateFileWithRecords;
 import com.app.database.Connections;
-import com.app.database.DeleteRecordFromDatabase;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
@@ -18,28 +17,14 @@ import java.util.stream.Collectors;
 
 public class DisplayAllUsersPanel {
 
-    private JFrame frame;
+    private final JFrame frame;
     private JButton backJButton;
     private JButton saveDataToFileJButton;
     private JTextArea recordsJTextField;
     public DisplayAllUsersPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Display Users", 500, 500);
-
         createResults();
-        if ( CreateJMenuBar.getIsDarkTheme() ) {
-            paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
-        } else {
-            paintAllComponents(Color.WHITE, Color.BLACK);
-        }
-        addActionsListeners();
-    }
-
-    public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
-        frame.getContentPane().setBackground(backgroundColor);
-        var setTheme = new SetTheme(backgroundColor, foregroundColor);
-        setTheme.setJButtonTheme(backJButton);
-        setTheme.setJButtonTheme(saveDataToFileJButton);
     }
 
     public void createResults() {
@@ -59,25 +44,41 @@ public class DisplayAllUsersPanel {
             }
         } catch ( Exception e ) {
             connections.closeAllConnections();
-            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE, null);
         }
 
         String listCustomers = allRecordsInList.stream().map(Object::toString).collect(Collectors.joining());
-        addComponents(listCustomers);
+        createComponents(listCustomers);
     }
 
-    public void addComponents(String records) {
+    public void createComponents(String records) {
         backJButton = new JButton("BACK");
         saveDataToFileJButton = new JButton("SAVE DATA");
         recordsJTextField = new JTextArea("ID:  |  LOGIN:  |  MAIL:\n" + records);
+        recordsJTextField.setEditable(false);
+
+        setParametersOfComponents();
+
+        if ( CreateJMenuBar.getIsDarkTheme() ) {
+            paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
+        } else {
+            paintAllComponents(Color.WHITE, Color.BLACK);
+        }
+
+        addActionsListeners();
+    }
+
+    public void setParametersOfComponents() {
         recordsJTextField.setBounds(10, 10, 350, 400);
         backJButton.setBounds(370, 150, 120, 25);
         saveDataToFileJButton.setBounds(370, 200, 120, 25);
+    }
 
-        recordsJTextField.setEditable(false);
-        frame.add(recordsJTextField);
-        frame.add(backJButton);
-        frame.add(saveDataToFileJButton);
+    public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
+        frame.getContentPane().setBackground(backgroundColor);
+        var setTheme = new SetTheme(backgroundColor, foregroundColor);
+        setTheme.setJButtonTheme(backJButton);
+        setTheme.setJButtonTheme(saveDataToFileJButton);
     }
 
     public void addActionsListeners() {
@@ -85,12 +86,13 @@ public class DisplayAllUsersPanel {
             frame.dispose();
             new AdministratorPanel();
         });
-        saveDataToFileJButton.addActionListener(e -> {
-            new CreateFileWithRecords();
-        });
+
+        saveDataToFileJButton.addActionListener(e -> new CreateFileWithRecords());
     }
 
-    public static void main(String[] args) {
-        new DisplayAllUsersPanel();
+    public void addComponents() {
+        frame.add(recordsJTextField);
+        frame.add(backJButton);
+        frame.add(saveDataToFileJButton);
     }
 }

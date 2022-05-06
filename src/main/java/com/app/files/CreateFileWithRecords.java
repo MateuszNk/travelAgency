@@ -1,29 +1,26 @@
-package com.app.configuration;
+package com.app.files;
 
-import com.app.GUI.SuccessfullyRegisteredPanel;
+import com.app.GUI.SuccessfulOperationPanel;
 import com.app.database.Connections;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.sql.ResultSet;
 
 public class CreateFileWithRecords {
 
     private final String pathToConfigurationFile = "./database.txt";
-    private final File configurationFile = new File(pathToConfigurationFile);
     public CreateFileWithRecords() {
         createFile();
     }
 
     public void createFile() {
         try {
-            configurationFile.createNewFile();
             FileWriter myWriter = new FileWriter(pathToConfigurationFile);
             createResults(myWriter);
         } catch ( Exception e ) {
-            new Errors(ErrorType.ERROR_OF_ERROR);
+            new Errors(ErrorType.ERROR_OF_ERROR, null);
         }
     }
 
@@ -44,13 +41,9 @@ public class CreateFileWithRecords {
             fileWriter.close();
         } catch ( Exception e ) {
             connections.closeAllConnections();
-            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE, null);
         }
 
-        new SuccessfullyRegisteredPanel("File created");
-    }
-
-    public static void main(String[] args) {
-        new CreateFileWithRecords();
+        new SuccessfulOperationPanel("File created", null);
     }
 }

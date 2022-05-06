@@ -1,6 +1,6 @@
 package com.app.GUI.creators;
 
-import com.app.GUI.ConfigureConnectionToDataBasePanel;
+import com.app.GUI.ConfigureConnectionToDatabasePanel;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -43,7 +43,7 @@ public class CreateJMenuBar {
         configurationJMenu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent me) {
-                new ConfigureConnectionToDataBasePanel(null, false);
+                new ConfigureConnectionToDatabasePanel(null, false);
             }
             @Override
             public void menuCanceled(MenuEvent e) {}

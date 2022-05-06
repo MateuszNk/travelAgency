@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class DoYouWantToClosePanel {
 
-    public JFrame frame;
+    private final JFrame frame;
     public DoYouWantToClosePanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Exit", 200, 150);
@@ -13,9 +13,9 @@ public class DoYouWantToClosePanel {
         createComponents();
     }
 
-    public JLabel communicateJLabel;
-    public JButton yesJButton;
-    public JButton noJButton;
+    private JLabel communicateJLabel;
+    private JButton yesJButton;
+    private JButton noJButton;
     public void createComponents() {
         communicateJLabel = new JLabel("Do You want to close?");
         yesJButton = new JButton("YES");
@@ -47,7 +47,7 @@ public class DoYouWantToClosePanel {
         setTheme.setJButtonTheme(noJButton);
     }
 
-    private static final int SUCCESS = 0;
+    private final int SUCCESS = 0;
     public void addActionsListeners() {
         yesJButton.addActionListener(e -> {
             frame.dispose();
@@ -63,9 +63,5 @@ public class DoYouWantToClosePanel {
         frame.add(noJButton);
         frame.add(yesJButton);
         frame.add(communicateJLabel);
-    }
-
-    public static void main(String[] args) {
-        new DoYouWantToClosePanel();
     }
 }

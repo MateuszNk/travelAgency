@@ -1,6 +1,6 @@
 package com.app.database;
 
-import com.app.configuration.CreateConfigurationFile;
+import com.app.files.CreateConfigurationFile;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
@@ -11,11 +11,10 @@ public class Database {
     private String loginToDatabase = null;
     private String passwordToDatabase = null;
     private String urlToDatabase = null;
-
     public Database() {
         CreateConfigurationFile ccf = new CreateConfigurationFile();
         if ( !ccf.fileExists ) {
-            new Errors(ErrorType.CONFIGURATION_FILE_IS_MISSING);
+            new Errors(ErrorType.CONFIGURATION_FILE_IS_MISSING, null);
             return;
         }
         urlToDatabase = ccf.getUrlToDatabase();
@@ -31,7 +30,7 @@ public class Database {
 
             if ( connection == null ) { throw new Exception(); }
         } catch ( Exception e) {
-            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
+            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE, null);
         }
         return connection;
     }
@@ -41,7 +40,7 @@ public class Database {
         try {
             statement = connection.createStatement();
         } catch ( Exception e ) {
-            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
+            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE, null);
         }
         return statement;
     }
@@ -51,7 +50,7 @@ public class Database {
         try {
             resultSet = statement.executeQuery(sql);
         } catch ( Exception e ) {
-            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE);
+            new Errors(ErrorType.NO_CONNECTION_TO_DATABASE, null);
         }
         return resultSet;
     }

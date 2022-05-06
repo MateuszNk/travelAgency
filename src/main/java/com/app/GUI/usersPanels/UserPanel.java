@@ -10,22 +10,22 @@ import java.awt.*;
 
 public class UserPanel {
 
-    public JFrame frame;
-    public final String login;
-    public CreateJFrame createJFrame = new CreateJFrame();
+    private final JFrame frame;
+    private final String login;
+    private final CreateJFrame createJFrame = new CreateJFrame();
     public UserPanel(String login) {
         this.login = login;
         frame = createJFrame.createJFrame("User Panel", 300, 450);
         createComponents();
     }
 
-    public JLabel welcomeJLabel;
-    public JButton bookTripJButton;
-    public JButton checkBookedTripsJButton;
-    public JButton resignationTripJButton;
-    public JButton accountOptionsJButton;
-    public JButton logoutJButton;
-    public JButton exitJButton;
+    private JLabel welcomeJLabel;
+    private JButton bookTripJButton;
+    private JButton checkBookedTripsJButton;
+    private JButton resignationTripJButton;
+    private JButton accountOptionsJButton;
+    private JButton logoutJButton;
+    private JButton exitJButton;
     public void createComponents() {
         welcomeJLabel = new JLabel("Welcome " + login);
         bookTripJButton = new JButton("BOOK TRIP");
@@ -72,14 +72,15 @@ public class UserPanel {
         setTheme.setJButtonTheme(exitJButton);
     }
 
+    private final int SUCCESS = 0;
     public void addActionsListeners() {
         logoutJButton.addActionListener(e -> {
             frame.dispose();
             new WelcomePanel();
         });
+
         exitJButton.addActionListener(e -> {
             frame.dispose();
-            int SUCCESS = 0;
             System.exit(SUCCESS);
         });
     }
@@ -93,6 +94,4 @@ public class UserPanel {
         frame.add(logoutJButton);
         frame.add(exitJButton);
     }
-
-    public static void main(String[] args) { new UserPanel("main"); }
 }

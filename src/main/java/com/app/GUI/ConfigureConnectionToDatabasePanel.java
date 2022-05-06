@@ -2,18 +2,18 @@ package com.app.GUI;
 
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
-import com.app.configuration.CreateConfigurationFile;
+import com.app.files.CreateConfigurationFile;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ConfigureConnectionToDataBasePanel {
+public class ConfigureConnectionToDatabasePanel {
 
     private final JDialog errorJDialog;
     private final boolean firstUse;
-    public ConfigureConnectionToDataBasePanel(JFrame frame2, boolean firstUse) {
+    public ConfigureConnectionToDatabasePanel(JFrame frame2, boolean firstUse) {
         this.firstUse = firstUse;
         errorJDialog = new JDialog(frame2);
         errorJDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -77,16 +77,12 @@ public class ConfigureConnectionToDataBasePanel {
 
     public void setParametersOfComponents() {
         welcomeJLabel.setBounds(50, 15, 300, 25);
-
         urlJLabel.setBounds(25, 55, 50, 25);
         urlJTextField.setBounds(105, 55, 175, 25);
-
         loginJLabel.setBounds(25, 80, 50, 25);
         loginJTextField.setBounds (105, 80, 175, 25);
-
         passwordJLabel.setBounds (25, 105, 75, 25);
         passwordJPasswordField.setBounds (105, 105, 175, 25);
-
         confirmJButton.setBounds (35, 150, 100, 20);
         backJButton.setBounds (170, 150, 100, 20);
         exitJButton.setBounds (170, 150, 100, 20);

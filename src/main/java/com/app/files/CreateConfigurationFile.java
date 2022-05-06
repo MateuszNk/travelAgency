@@ -1,4 +1,4 @@
-package com.app.configuration;
+package com.app.files;
 
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
@@ -12,8 +12,8 @@ public class CreateConfigurationFile {
     private final String pathToConfigurationFile = "./configuration.txt";
     private final File configurationFile = new File(pathToConfigurationFile);
     private String urlToDatabase;
-    public String loginToDatabase;
-    public String passwordToDatabase;
+    private String loginToDatabase;
+    private String passwordToDatabase;
     public CreateConfigurationFile(String url, String login, String password) {
         urlToDatabase = url;
         loginToDatabase = login;
@@ -29,23 +29,26 @@ public class CreateConfigurationFile {
     public void ifFileExists() {
         if ( configurationFile.exists() ) {
             try {
-                Scanner sc = new Scanner(configurationFile);
-                if ( sc.hasNextLine() )
-                    urlToDatabase = sc.nextLine();
-                else
+                Scanner scanner = new Scanner(configurationFile);
+                if ( scanner.hasNextLine() ) {
+                    urlToDatabase = scanner.nextLine();
+                } else {
                     urlToDatabase = null;
+                }
 
-                if ( sc.hasNextLine() )
-                    loginToDatabase = sc.nextLine();
-                else
+                if ( scanner.hasNextLine() ) {
+                    loginToDatabase = scanner.nextLine();
+                } else {
                     loginToDatabase = null;
+                }
 
-                if ( sc.hasNextLine() )
-                    passwordToDatabase = sc.nextLine();
-                else
+                if ( scanner.hasNextLine() ) {
+                    passwordToDatabase = scanner.nextLine();
+                } else {
                     passwordToDatabase = null;
+                }
             } catch ( Exception e ) {
-                new Errors(ErrorType.ERROR_OF_ERROR);
+                new Errors(ErrorType.ERROR_OF_ERROR, null);
             }
 
             fileExists = true;
@@ -57,23 +60,16 @@ public class CreateConfigurationFile {
     public void createFile() {
         fileExists = false;
         try {
-            configurationFile.createNewFile();
             FileWriter myWriter = new FileWriter(pathToConfigurationFile);
             myWriter.write(urlToDatabase + "\n" + loginToDatabase + "\n" + passwordToDatabase);
             myWriter.close();
         } catch ( Exception e ) {
-            new Errors(ErrorType.ERROR_OF_ERROR);
+            new Errors(ErrorType.ERROR_OF_ERROR, null);
         }
     }
 
     public String getUrlToDatabase() { return urlToDatabase; }
     public String getLoginToDatabase() { return loginToDatabase; }
     public String getPasswordToDatabase() { return passwordToDatabase; }
-
-    public static void main(String[] args) {
-        new CreateConfigurationFile("jdbc:mysql://localhost:3306/users",
-            "root",
-            "");
-    }
 }
 

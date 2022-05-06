@@ -1,6 +1,5 @@
 package com.app.database;
 
-import com.app.GUI.usersPanels.DeleteUserByLoginPanel;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
 
@@ -29,10 +28,10 @@ public class DeleteRecordFromDatabase {
                 preparedStatement.close();
                 connections.connection.close();
             } catch (Exception e) {
-                new Errors(ErrorType.CANNOT_CLOSE_PREPARED_STATEMENT_ANDOR_CONNECTION);
+                new Errors(ErrorType.CANNOT_CLOSE_PREPARED_STATEMENT_ANDOR_CONNECTION, null);
             }
         } catch ( Exception e ) {
-            new Errors(ErrorType.PREPARED_STATEMENT_DOESNT_WORK_PROPERLY);
+            new Errors(ErrorType.PREPARED_STATEMENT_DOESNT_WORK_PROPERLY, null);
         }
         repairIdsInDatabase();
     }
@@ -61,20 +60,9 @@ public class DeleteRecordFromDatabase {
                 }
                 beforeInt++;
             }
-
-
-
-                //String password = resultSet.getString("PASSWORD");
-                //String email = resultSet.getString("EMAIL");
-                //String strId = String.valueOf(id);
-                //String allRecords = strId + "    " + login + "    " + email + "\n";
-                //allRecordsInList.add(allRecords);
         } catch ( Exception e ) {
             connections.closeAllConnections();
-            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE, null);
         }
-
-        //String listCustomers = allRecordsInList.stream().map(Object::toString).collect(Collectors.joining());
-        //addComponents(listCustomers);
     }
 }

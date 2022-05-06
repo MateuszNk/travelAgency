@@ -9,14 +9,15 @@ import java.sql.Statement;
 
 public class Connections {
 
-    public Database database;
+    private final Database database;
     public Connection connection;
-    public Statement statement;
-    public ResultSet resultSet;
+    private Statement statement;
+    private ResultSet resultSet;
     public boolean isEverythingGood;
     public Connections() {
         database = new Database();
         if ( database.getUrlToDatabase() == null ) {
+            isEverythingGood = false;
             return;
         }
         createConnection();
@@ -38,7 +39,7 @@ public class Connections {
                 isEverythingGood = false;
                 return;
             } catch ( Exception e ) {
-                new Errors(ErrorType.ERROR_OF_ERROR);
+                new Errors(ErrorType.ERROR_OF_ERROR, null);
             }
         }
         isEverythingGood = true;
@@ -53,7 +54,7 @@ public class Connections {
                 connection.close();
                 return;
             } catch ( Exception e ) {
-                new Errors(ErrorType.ERROR_OF_ERROR);
+                new Errors(ErrorType.ERROR_OF_ERROR, null);
             }
         }
         isEverythingGood = true;
@@ -66,11 +67,10 @@ public class Connections {
             connection.close();
         } catch ( Exception e ) {
             isEverythingGood = false;
-            new Errors(ErrorType.CANNOT_CLOSE_ALL);
+            new Errors(ErrorType.CANNOT_CLOSE_ALL, null);
         }
         isEverythingGood = true;
     }
 
     public ResultSet getResultSet() { return resultSet; }
-    public boolean getIsEverythingGood() { return isEverythingGood; }
 }

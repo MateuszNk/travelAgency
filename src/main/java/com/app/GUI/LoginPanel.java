@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class LoginPanel {
 
-    public JFrame frame;
+    private final JFrame frame;
     public LoginPanel() {
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Login Panel", 300, 250);
@@ -20,13 +20,13 @@ public class LoginPanel {
         createComponents();
     }
 
-    public JLabel loginJLabel;
-    public JLabel passwordJLabel;
-    public JLabel welcomeJLabel;
-    public JTextField loginJTextField;
-    public JPasswordField passwordJPasswordField;
-    public JButton loginJButton;
-    public JButton backJButton;
+    private JLabel loginJLabel;
+    private JLabel passwordJLabel;
+    private JLabel welcomeJLabel;
+    private JTextField loginJTextField;
+    private JPasswordField passwordJPasswordField;
+    private JButton loginJButton;
+    private JButton backJButton;
     public void createComponents() {
         loginJButton = new JButton("CONFIRM");
         backJButton = new JButton("BACK");
@@ -78,7 +78,8 @@ public class LoginPanel {
 
         loginJButton.addActionListener(e -> {
             frame.dispose();
-            new CheckLoginData(loginJTextField.getText(), String.valueOf(passwordJPasswordField.getPassword()));
+            new CheckLoginData(loginJTextField.getText(),
+                    String.valueOf(passwordJPasswordField.getPassword()));
         });
     }
 
@@ -90,9 +91,5 @@ public class LoginPanel {
         frame.add(loginJTextField);
         frame.add(welcomeJLabel);
         frame.add(passwordJPasswordField);
-    }
-
-    public static void main(String[] args) {
-        new LoginPanel();
     }
 }

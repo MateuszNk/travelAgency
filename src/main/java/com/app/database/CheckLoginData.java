@@ -40,7 +40,7 @@ public class CheckLoginData {
             isCorrectLoginData(login, password, data);
         } catch ( Exception e ) {
             connections.closeAllConnections();
-            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE);
+            new Errors(ErrorType.CANNOT_GET_DATA_FROM_DATABASE, null);
         }
     }
 
@@ -58,6 +58,6 @@ public class CheckLoginData {
             }
         }
 
-        new Errors(ErrorType.WRONG_LOGIN_ANDOR_PASSWORD);
+        new Errors(ErrorType.WRONG_LOGIN_ANDOR_PASSWORD, null);
     }
 }
