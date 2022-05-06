@@ -51,4 +51,9 @@ public record SetTheme(Color backgroundColor, Color foregroundColor) {
         jMenuItem.setBackground(backgroundColor);
         jMenuItem.setForeground(foregroundColor);
     }
+
+    public void setJTextArea(JTextArea jTextArea) {
+        jTextArea.setBackground(backgroundColor);
+        jTextArea.setForeground(foregroundColor);
+    }
 }

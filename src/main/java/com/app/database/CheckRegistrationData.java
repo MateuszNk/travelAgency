@@ -1,5 +1,6 @@
 package com.app.database;
 
+import com.app.GUI.LoginPanel;
 import com.app.GUI.SuccessfullyRegisteredPanel;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
@@ -66,6 +67,8 @@ public class CheckRegistrationData {
 
         if ( !isTaken ) {
             new AddRecordToDatabase(login, password, email);
+            new LoginPanel();
+            new SuccessfullyRegisteredPanel("Successfully registered");
         }
     }
 

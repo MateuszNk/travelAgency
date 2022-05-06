@@ -79,7 +79,6 @@ public class WelcomePanel {
         frame.add(exitJButton);
     }
 
-
     public static void main(String[] args) {
         new WelcomePanel();
     }

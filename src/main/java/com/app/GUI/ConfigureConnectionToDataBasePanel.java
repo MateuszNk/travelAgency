@@ -1,21 +1,36 @@
 package com.app.GUI;
 
-import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
 import com.app.configuration.CreateConfigurationFile;
+import com.app.errors.ErrorType;
+import com.app.errors.Errors;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ConfigureConnectionToDataBasePanel {
 
-    public JFrame frame;
-    public ConfigureConnectionToDataBasePanel() {
-        CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Configure Connection", 310, 255);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        createComponents();
+    private final JDialog errorJDialog;
+    private final boolean firstUse;
+    public ConfigureConnectionToDataBasePanel(JFrame frame2, boolean firstUse) {
+        this.firstUse = firstUse;
+        errorJDialog = new JDialog(frame2);
+        errorJDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        errorJDialog.setTitle("Configure connection");
+        errorJDialog.setModal(true);
+
+        ImageIcon icon = new ImageIcon(("/home/admin/IdeaProjects/travelAgency/src/resources/graphics/mountain.png"));
+        errorJDialog.setIconImage(icon.getImage());
+        errorJDialog.setLocationRelativeTo(null);
+        errorJDialog.setLayout(null);
+        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        int width = 310;
+        int height = 255;
+        errorJDialog.setBounds(centerPoint.x - width / 2, centerPoint.y - height / 2, width, height);
+        errorJDialog.setResizable(false);
+        createComponentsJDialog();
+        errorJDialog.setVisible(true);
     }
 
     public JLabel urlJLabel;
@@ -27,7 +42,8 @@ public class ConfigureConnectionToDataBasePanel {
     public JPasswordField passwordJPasswordField;
     public JButton confirmJButton;
     public JButton backJButton;
-    public void createComponents() {
+    private JButton exitJButton;
+    public void createComponentsJDialog() {
         confirmJButton = new JButton("CONFIRM");
         backJButton = new JButton("BACK");
         urlJLabel = new JLabel("URL:");
@@ -35,6 +51,7 @@ public class ConfigureConnectionToDataBasePanel {
         loginJLabel = new JLabel("Login:");
         passwordJLabel = new JLabel("Password:");
         loginJTextField = new JTextField(32);
+        exitJButton = new JButton("EXIT");
 
         welcomeJLabel = new JLabel("Please write data to database");
         passwordJPasswordField = new JPasswordField(32);
@@ -45,16 +62,17 @@ public class ConfigureConnectionToDataBasePanel {
             loginJTextField.setText(ccf.getLoginToDatabase());
             passwordJPasswordField.setText(ccf.getPasswordToDatabase());
         }
+
         setParametersOfComponents();
 
         if ( CreateJMenuBar.getIsDarkTheme() ) {
-            paintAllComponents(Color.BLACK, Color.LIGHT_GRAY);
+            paintAllComponentsJDialog(Color.BLACK, Color.LIGHT_GRAY);
         } else {
-            paintAllComponents(Color.WHITE, Color.BLACK);
+            paintAllComponentsJDialog(Color.WHITE, Color.BLACK);
         }
 
-        addActionsListeners();
-        addComponents();
+        addActionsListenersJDialog();
+        addComponentsJDialog();
     }
 
     public void setParametersOfComponents() {
@@ -71,10 +89,11 @@ public class ConfigureConnectionToDataBasePanel {
 
         confirmJButton.setBounds (35, 150, 100, 20);
         backJButton.setBounds (170, 150, 100, 20);
+        exitJButton.setBounds (170, 150, 100, 20);
     }
 
-    public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
-        frame.getContentPane().setBackground(backgroundColor);
+    public void paintAllComponentsJDialog(Color backgroundColor, Color foregroundColor) {
+        errorJDialog.getContentPane().setBackground(backgroundColor);
         var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJLabelTheme(welcomeJLabel);
         setTheme.setJLabelTheme(urlJLabel);
@@ -85,33 +104,42 @@ public class ConfigureConnectionToDataBasePanel {
         setTheme.setJPasswordField(passwordJPasswordField);
         setTheme.setJButtonTheme(confirmJButton);
         setTheme.setJButtonTheme(backJButton);
+        setTheme.setJButtonTheme(exitJButton);
     }
 
-    public void addActionsListeners() {
-        backJButton.addActionListener(e -> frame.dispose());
+    private final int SUCCESS = 0;
+    public void addActionsListenersJDialog() {
+        backJButton.addActionListener(e -> errorJDialog.dispose());
+        exitJButton.addActionListener(e -> System.exit(SUCCESS));
 
         confirmJButton.addActionListener(e -> {
-            frame.dispose();
+            if ( urlJTextField.getText().isEmpty()
+                    || loginJTextField.getText().isEmpty() ) {
+                new Errors(ErrorType.FIELDS_ARE_EMPTY, null);
+                return;
+            }
+
+            errorJDialog.dispose();
             new CreateConfigurationFile(urlJTextField.getText(),
                     loginJTextField.getText(),
                     String.valueOf(passwordJPasswordField.getPassword()));
         });
     }
 
-    public void addComponents() {
-        frame.add(welcomeJLabel);
-        frame.add(urlJLabel);
-        frame.add(urlJTextField);
-        frame.add(loginJLabel);
-        frame.add(loginJTextField);
-        frame.add(passwordJLabel);
-        frame.add(passwordJPasswordField);
-        frame.add(confirmJButton);
-        frame.add(backJButton);
-        frame.repaint();
-    }
-
-    public static void main(String[] args) {
-        new ConfigureConnectionToDataBasePanel();
+    public void addComponentsJDialog() {
+        errorJDialog.add(welcomeJLabel);
+        errorJDialog.add(urlJLabel);
+        errorJDialog.add(urlJTextField);
+        errorJDialog.add(loginJLabel);
+        errorJDialog.add(loginJTextField);
+        errorJDialog.add(passwordJLabel);
+        errorJDialog.add(passwordJPasswordField);
+        errorJDialog.add(confirmJButton);
+        if ( !firstUse ) {
+            errorJDialog.add(backJButton);
+        } else {
+            errorJDialog.add(exitJButton);
+        }
+        errorJDialog.repaint();
     }
 }

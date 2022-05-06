@@ -3,6 +3,7 @@ package com.app.GUI;
 import com.app.GUI.creators.CreateJFrame;
 import com.app.GUI.creators.CreateJMenuBar;
 import com.app.GUI.creators.SetTheme;
+import com.app.configuration.CreateConfigurationFile;
 import com.app.database.CheckRegistrationData;
 import com.app.errors.ErrorType;
 import com.app.errors.Errors;
@@ -20,7 +21,14 @@ public class RegisterPanel {
         createJFrame.addWindowListener();
         new CreateJMenuBar(frame);
 
+        frame.setVisible(false);
         createJFrame.addWindowListener();
+        CreateConfigurationFile ccf = new CreateConfigurationFile();
+        if ( !ccf.fileExists ) {
+            new Errors(ErrorType.CONFIGURATION_FILE_IS_MISSING, frame);
+            new ConfigureConnectionToDataBasePanel(frame, true);
+        }
+        frame.setVisible(true);
         createComponents();
     }
 
@@ -96,11 +104,13 @@ public class RegisterPanel {
         setTheme.setJLabelTheme(repeatPasswordJLabel);
         setTheme.setJPasswordField(repeatPasswordJPasswordField);
         setTheme.setJTextField(loginJTextField);
+        setTheme.setJTextArea(passwordComplexityJTextArea);
         setTheme.setJPasswordField(passwordJPasswordField);
         setTheme.setJButtonTheme(confirmJButton);
         setTheme.setJButtonTheme(backJButton);
     }
 
+    private boolean isError = false;
     public void addActionsListeners() {
         backJButton.addActionListener(e -> {
             frame.dispose();
@@ -109,6 +119,7 @@ public class RegisterPanel {
 
         confirmJButton.addActionListener(e -> {
             checkIfFieldsAreEmpty();
+            if ( isError ) { return; }
             frame.dispose();
             new CheckRegistrationData(loginJTextField.getText(), emailJTextField.getText(),
                     String.valueOf(passwordJPasswordField.getPassword()));
@@ -121,6 +132,7 @@ public class RegisterPanel {
                 || String.valueOf(passwordJPasswordField.getPassword()).isEmpty()
                 || String.valueOf(repeatPasswordJPasswordField.getPassword()).isEmpty()
                 || emailJTextField.getText().isEmpty() ) {
+            isError = true;
             new Errors(ErrorType.FIELDS_ARE_EMPTY);
             return;
         }
@@ -130,6 +142,7 @@ public class RegisterPanel {
     public void checkPasswords() {
          if ( !String.valueOf(passwordJPasswordField.getPassword()).equals(
                  String.valueOf(repeatPasswordJPasswordField.getPassword())) ) {
+             isError = true;
             new Errors(ErrorType.PASSWORDS_ARE_NOT_EQUALS);
             return;
         }
@@ -182,6 +195,7 @@ public class RegisterPanel {
 
         for ( boolean x : isPasswordComplexity ) {
             if ( !x ) {
+                isError = true;
                 new Errors(ErrorType.PASSWORD_IS_NOT_COMPLEXITY);
                 return;
             }
@@ -210,10 +224,6 @@ public class RegisterPanel {
         frame.add(confirmJButton);
         frame.add(passwordComplexityJTextArea);
     }
-
-    public String getLoginJTextField() { return loginJTextField.getText(); }
-    public String getPasswordJPasswordField() { return String.valueOf(passwordJPasswordField.getPassword()); }
-    public String getEmailJTextField() { return emailJTextField.getText(); }
 
     public static void main(String[] args) {
         new RegisterPanel();

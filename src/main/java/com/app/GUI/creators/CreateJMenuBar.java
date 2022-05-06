@@ -43,7 +43,7 @@ public class CreateJMenuBar {
         configurationJMenu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent me) {
-                new ConfigureConnectionToDataBasePanel();
+                new ConfigureConnectionToDataBasePanel(null, false);
             }
             @Override
             public void menuCanceled(MenuEvent e) {}

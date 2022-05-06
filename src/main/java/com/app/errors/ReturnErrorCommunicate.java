@@ -35,9 +35,9 @@ public class ReturnErrorCommunicate {
             } case FIELDS_ARE_EMPTY -> {
                 return "Some field/s are empty!";
             } case PASSWORD_IS_NOT_COMPLEXITY -> {
-                return "Password does not meet the requirements";
+                return "Password does not meet the requirements!";
             } case LOGIN_OR_EMAIL_IS_TAKEN -> {
-                return "Login and/or email is already taken";
+                return "Login and/or email is already taken!";
             }
             default -> {
                 return "Error of Error!";

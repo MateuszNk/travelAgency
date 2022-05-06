@@ -2,15 +2,13 @@ package com.app.GUI.creators;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 public class CreateJFrame {
 
     public JFrame frame;
-
     public JFrame createJFrame(String title, int width, int height) {
         frame = new JFrame(title);
-        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/graphics/mountain.png")));
+        ImageIcon icon = new ImageIcon(("/home/admin/IdeaProjects/travelAgency/src/resources/graphics/mountain.png"));
         frame.setIconImage(icon.getImage());
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
