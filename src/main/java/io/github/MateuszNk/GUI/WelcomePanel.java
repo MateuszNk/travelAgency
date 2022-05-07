@@ -59,7 +59,7 @@ public class WelcomePanel {
     }
 
     public void addActionsListeners() {
-        exitJButton.addActionListener(e -> new DoYouWantToClosePanel());
+        exitJButton.addActionListener(e -> new DoYouWantToClosePanel(frame));
 
         loginJButton.addActionListener(e -> {
             frame.dispose();

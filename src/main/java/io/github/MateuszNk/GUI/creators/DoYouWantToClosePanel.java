@@ -5,12 +5,25 @@ import java.awt.*;
 
 public class DoYouWantToClosePanel {
 
-    private final JFrame frame;
-    public DoYouWantToClosePanel() {
-        CreateJFrame createJFrame = new CreateJFrame();
-        frame = createJFrame.createJFrame("Exit", 200, 150);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    private final JDialog jDialog;
+    public DoYouWantToClosePanel(JFrame frame) {
+        jDialog = new JDialog(frame);
+        jDialog.setTitle("Exit");
+        jDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        jDialog.setModal(true);
+
+        ImageIcon icon = new ImageIcon(("/home/admin/IdeaProjects/travelAgency/src/resources/graphics/mountain.png"));
+        jDialog.setIconImage(icon.getImage());
+        jDialog.setLocationRelativeTo(null);
+        jDialog.setLayout(null);
+        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        int width = 200;
+        int height = 150;
+        jDialog.setBounds(centerPoint.x - width / 2, centerPoint.y - height / 2, width, height);
+        jDialog.setResizable(false);
+
         createComponents();
+        jDialog.setVisible(true);
     }
 
     private JLabel communicateJLabel;
@@ -40,7 +53,7 @@ public class DoYouWantToClosePanel {
     }
 
     public void paintAllComponents(Color backgroundColor, Color foregroundColor) {
-        frame.getContentPane().setBackground(backgroundColor);
+        jDialog.getContentPane().setBackground(backgroundColor);
         var setTheme = new SetTheme(backgroundColor, foregroundColor);
         setTheme.setJLabelTheme(communicateJLabel);
         setTheme.setJButtonTheme(yesJButton);
@@ -50,18 +63,16 @@ public class DoYouWantToClosePanel {
     private final int SUCCESS = 0;
     public void addActionsListeners() {
         yesJButton.addActionListener(e -> {
-            frame.dispose();
+            jDialog.dispose();
             System.exit(SUCCESS);
         });
 
-        noJButton.addActionListener(e -> {
-            frame.dispose();
-        });
+        noJButton.addActionListener(e -> jDialog.dispose() );
     }
 
     public void addComponents() {
-        frame.add(noJButton);
-        frame.add(yesJButton);
-        frame.add(communicateJLabel);
+        jDialog.add(noJButton);
+        jDialog.add(yesJButton);
+        jDialog.add(communicateJLabel);
     }
 }

@@ -24,7 +24,7 @@ public class CreateJFrame {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                new DoYouWantToClosePanel();
+                new DoYouWantToClosePanel(frame);
             }
         });
     }
