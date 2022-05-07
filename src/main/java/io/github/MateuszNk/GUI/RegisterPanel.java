@@ -16,7 +16,9 @@ import java.util.Arrays;
 public class RegisterPanel {
 
     private final JFrame frame;
-    public RegisterPanel() {
+    private boolean fromAdministratorPanel;
+    public RegisterPanel(boolean fromAdministratorPanel) {
+        this.fromAdministratorPanel = fromAdministratorPanel;
         CreateJFrame createJFrame = new CreateJFrame();
         frame = createJFrame.createJFrame("Registration Panel", 320, 440);
         createJFrame.addWindowListener();
@@ -125,10 +127,12 @@ public class RegisterPanel {
         confirmJButton.addActionListener(e -> {
             checkIfFieldsAreEmpty();
             if ( isError ) { return; }
+
             frame.dispose();
             new CheckRegistrationData(loginJTextField.getText(), emailJTextField.getText(),
                     String.valueOf(passwordJPasswordField.getPassword()));
-            new LoginPanel();
+
+            if ( !fromAdministratorPanel ) { new LoginPanel(); }
         });
     }
 

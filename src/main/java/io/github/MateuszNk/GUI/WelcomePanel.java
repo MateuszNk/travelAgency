@@ -68,7 +68,7 @@ public class WelcomePanel {
 
         registerJButton.addActionListener(e -> {
             frame.dispose();
-            new RegisterPanel();
+            new RegisterPanel(false);
         });
     }
 

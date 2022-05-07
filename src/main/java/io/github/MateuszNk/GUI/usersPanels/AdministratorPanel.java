@@ -73,7 +73,7 @@ public class AdministratorPanel {
         });
 
         addNewUserJButton.addActionListener(e -> {
-            new RegisterPanel();
+            new RegisterPanel(true);
         });
 
         deleteUserJButton.addActionListener(e -> {
