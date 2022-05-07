@@ -1,8 +1,0 @@
-1    admin    admin@test.gw.pl
-2    login    login@password.pl
-3    ElPolakko    qwert@uiop.wsad
-4    mateuszek    fsd@fsd.fsd
-5    asd    ewqe@ewqe.eqwe
-6    test2    sd@dsa.d
-7    test3    asd@das.dgfg
-8    test4    dsafg@fsdf.fsdf

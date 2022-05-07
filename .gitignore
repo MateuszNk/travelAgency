@@ -40,3 +40,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Configuration file
+configuration.txt
+database.txt
